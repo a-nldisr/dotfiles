@@ -1,0 +1,24 @@
+#!/bin/bash
+
+export DOCKER_REPO_PREFIX=anldisr
+export AURORA_VERSION=0.13.0
+
+aurora(){
+	docker run -it --rm \
+		-v $HOME/.aurora/clusters.json:/home/aurora/.aurora/clusters.json \
+		-v $HOME/.netrc:/home/aurora/.netrc:ro \
+		-v $HOME/aurora/jobs:/home/aurora/jobs/ \
+		--log-driver none \
+		--name aurora-tools \
+		${DOCKER_REPO_PREFIX}/aurora-tools:${AURORA_VERSION}.rpm aurora "$@"
+          }
+
+aurora_admin(){
+	docker run -it --rm \
+		-v $HOME/.aurora/clusters.json:/home/aurora/.aurora/clusters.json \
+		-v $HOME/.netrc:/home/aurora/.netrc:ro \
+		-v $HOME/aurora/jobs:/home/aurora/jobs/ \
+		--log-driver none \
+		--name aurora-tools \
+		${DOCKER_REPO_PREFIX}/aurora-tools:${AURORA_VERSION}.rpm aurora_admin "$@"
+          }
