@@ -1,0 +1,155 @@
+#!/bin/bash
+
+# Mac download and install packages
+
+get_brew(){
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+}
+
+get_vscode(){
+curl --silent https://some_url/vscode_${vscode_version}.dmg -o ~/Downloads/
+}
+
+get_sublime(){
+curl --silent https://some_url/sublime_${sublime_version}.dmg -o ~/Downloads/
+}
+
+get_keepassyc() {
+curl --silent https://some_url/keepass_${keepassyc_version} -o ~/Downloads/
+}
+
+get_brave() {
+curl --silent https://some_url/brave_${brave_version} -o ~/Downloads/
+}
+
+get_chrome() {
+curl --silent https://some_url/chrome_${chrome_version} -o ~/Downloads/
+}
+
+set_basedirs() {
+mkdir ~/Git
+mkdir ~/go
+mkdir ~/Playground
+mkdir ~/Workplace
+}
+
+set_golangdirs() {
+echo "Setting general golang Playground directory"
+mkdir ~/Playground/golang
+mkdir ~/Playground/golang/src
+mkdir ~/Playground/golang/bin
+mkdir ~/Playground/golang/pkg
+
+echo "Setting general golang Workplace directory"
+mkdir ~/Workplace/golang
+mkdir ~/Workplace/golang/src
+mkdir ~/Workplace/golang/bin
+mkdir ~/Workplace/golang/pkg
+
+echo "Setting gopath directory up"
+mkdir ~/go/src
+mkdir ~/go/bin
+mkdir ~/go/pkg
+}
+
+
+
+install_golang() {
+        export GO_VERSION=1.9
+        export GO_SRC=/usr/local/go
+
+        # Passing version
+	if [[ ! -z "$1" ]]; then
+		export GO_VERSION=$1
+	fi
+
+	# Purge old GO_SRC
+	if [[ -d "$GO_SRC" ]]; then
+		sudo rm -rf "$GO_SRC"
+	fi
+
+	# Subshell install go
+	(
+        # Darwin installer requires a path, thus we do not pipe this yet
+	curl --silent "https://storage.googleapis.com/golang/go${GO_VERSION}.darwin-amd64.pkg" -o ~/Downloads/go${GO_VERSION}.darwin-amd64.pkg 
+        sudo /usr/sbin/installer -pkg ~/Downloads/go${GO_VERSION}.darwin-amd64.pkg -target / -verboseR
+	local user="$USER"
+	# rebuild stdlib for faster builds
+	sudo chown -R "${user}" /usr/local/go/pkg
+	CGO_ENABLED=0 go install -a -installsuffix cgo std
+	)
+
+        # Subshell install cmdline tools
+	(
+	set -x
+	set +e
+	go get github.com/golang/lint/golint
+	go get golang.org/x/tools/cmd/cover
+	go get golang.org/x/review/git-codereview
+	go get golang.org/x/tools/cmd/goimports
+	go get golang.org/x/tools/cmd/gorename
+	go get golang.org/x/tools/cmd/guru
+        )
+}
+
+install_vagrant() {
+	export VAGRANT_VER=2.0.0
+        # Subshell install Vagrant
+        (
+        curl --silent "https://releases.hashicorp.com/vagrant/${VAGRANT_VER}/vagrant_${VAGRANT_VER}_x86_64.dmg" -o ~/Downloads/vagrant_${VAGRANT_VER}_x86_64.dmg
+        hdiutil attach ~/Downloads/vagrant_${VAGRANT_VER}_x86_64.dmg
+        sudo /usr/sbin/installer -pkg /Volumes/Vagrant/vagrant.pkg -target / -verboseR
+        hdiutil detach /Volumes/Vagrant/
+        )
+}
+
+setup_sudoers() {
+        { \
+		echo -e 'Defaults	secure_path="/usr/local/go/bin:/home/${USER}/.go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'; \
+		echo -e 'Defaults	env_keep += "ftp_proxy http_proxy https_proxy no_proxy GOPATH EDITOR"'; \
+		echo -e "${TARGET_USER} ALL=(ALL) NOPASSWD:ALL"; \
+		echo -e "${TARGET_USER} ALL=NOPASSWD: /usr/sbin/installer"; \
+	} >> /etc/sudoers
+}
+
+install_virtualbox() {
+        # Installation of virtualbox and extension pack
+        export VIRTUALBOX_VER=5.1.26
+        # Since 1 version number wasn't enough
+        export VIRTUALBOX_VER2=117224 
+        # Subshell install virtualbox
+        (
+        curl --silent "http://download.virtualbox.org/virtualbox/${VIRTUALBOX_VER}/VirtualBox-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}-OSX.dmg" -o ~/Downloads/VirtualBox-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}-OSX.dmg
+        hdiutil attach ~/Downloads/VirtualBox-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}-OSX.dmg
+        sudo /usr/sbin/installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target / -verboseR
+        hdiutil detach /Volumes/VirtualBox/
+        )
+
+        # Installation of virtualbox extension pack
+        (
+        curl --silent "http://download.virtualbox.org/virtualbox/${VIRTUALBOX_VER}/Oracle_VM_VirtualBox_Extension_Pack-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}.vbox-extpack" -o ~/Downloads/Oracle_VM_VirtualBox_Extension_Pack-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}.vbox-extpack
+        VBoxManage extpack install --replace ~/Downloads/Oracle_VM_VirtualBox_Extension_Pack-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}.vbox-extpack
+        )
+}
+
+install_shellcheck() {
+        brew install shellcheck
+}
+
+install_python3() {
+        brew install python3
+}
+
+install_ansible() {
+        if command -v python3 &>/dev/null; then
+            echo "Installing ansible"
+        else
+        install_python3
+        fi
+        brew install ansible
+}
+
+install_pip() {
+        brew install pip
+}
+

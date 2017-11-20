@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export GOPATH="${HOME}/go"
+
+export PATH=/usr/local/bin:/usr/local/go/bin:${PATH}:${GOPATH}/bin:/usr/share/bcc/tools:/sbin
+
