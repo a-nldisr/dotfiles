@@ -148,6 +148,8 @@ install_virtualbox() {
         )
 }
 
+# Brew Section, introduced this since docker really messed up network, sound, passing through arguments. One day Docker will be made great again
+
 install_shellcheck() {
         brew install shellcheck
 }
