@@ -3,61 +3,69 @@
 # Mac download and install packages
 
 
-# This installs brew, brew is handy when you cannot bother to deal with docker on macbook
+# This installs brew, i tried so hard to put everything in containers but on mac its gimped
 get_brew(){
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
 get_vscode(){
-# vscode only follows a redirect
-echo "Downloading vscode"
-curl --silent -L https://go.microsoft.com/fwlink/?LinkID=620882 -o ~/Downloads/vscode.zip
-echo "Download complete"
+# Could only get vscode with a redirect
+        echo "Downloading vscode"
+        curl --silent -L https://go.microsoft.com/fwlink/?LinkID=620882 -o ~/Downloads/vscode.zip
+        echo "Download complete"
 # Place the .app file directly in the Applications folder
-echo "Placing vscode in Applications folder"
-unzip ~/Downloads/vscode.zip -d /Applications/
+        echo "Placing vscode in Applications folder"
+        unzip ~/Downloads/vscode.zip -d /Applications/
 }
 
 get_sublime(){
-curl --silent https://some_url/sublime_${sublime_version}.dmg -o ~/Downloads/
+        curl --silent https://some_url/sublime_${sublime_version}.dmg -o ~/Downloads/
 }
 
 get_keepassyc() {
-curl --silent https://some_url/keepass_${keepassyc_version} -o ~/Downloads/
+        curl --silent https://some_url/keepass_${keepassyc_version} -o ~/Downloads/
 }
 
 get_brave() {
-curl --silent https://some_url/brave_${brave_version} -o ~/Downloads/
+        curl --silent https://some_url/brave_${brave_version} -o ~/Downloads/
 }
 
 get_chrome() {
-curl --silent https://some_url/chrome_${chrome_version} -o ~/Downloads/
+        echo "Downloading Google Chrome"
+        curl --silent https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg -o ~/Downloads/googlechrome.dmg
+        echo "Download complete, installing chrome"
+
+        hdiutil attach ~/Downloads/googlechrome.dmg
+        sudo /usr/sbin/installer -pkg /Volumes/Google\ Chrome/Google\ Chrome.app -target / -verboseR
+        echo "Chrome installation is complete"
+        hdiutil detach /Volumes/Google\ Chrome/
+        echo "Cleaned up"
 }
 
 set_basedirs() {
-mkdir ~/Git
-mkdir ~/go
-mkdir ~/Playground
-mkdir ~/Workplace
+        mkdir ~/Git
+        mkdir ~/go
+        mkdir ~/Playground
+        mkdir ~/Workplace
 }
 
 set_golangdirs() {
-echo "Setting general golang Playground directory"
-mkdir ~/Playground/golang
-mkdir ~/Playground/golang/src
-mkdir ~/Playground/golang/bin
-mkdir ~/Playground/golang/pkg
+        echo "Setting general golang Playground directory"
+        mkdir ~/Playground/golang
+        mkdir ~/Playground/golang/src
+        mkdir ~/Playground/golang/bin
+        mkdir ~/Playground/golang/pkg
 
-echo "Setting general golang Workplace directory"
-mkdir ~/Workplace/golang
-mkdir ~/Workplace/golang/src
-mkdir ~/Workplace/golang/bin
-mkdir ~/Workplace/golang/pkg
+        echo "Setting general golang Workplace directory"
+        mkdir ~/Workplace/golang
+        mkdir ~/Workplace/golang/src
+        mkdir ~/Workplace/golang/bin
+        mkdir ~/Workplace/golang/pkg
 
-echo "Setting gopath directory up"
-mkdir ~/go/src
-mkdir ~/go/bin
-mkdir ~/go/pkg
+        echo "Setting gopath directory up"
+        mkdir ~/go/src
+        mkdir ~/go/bin
+        mkdir ~/go/pkg
 }
 
 
