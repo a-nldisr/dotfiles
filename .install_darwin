@@ -62,7 +62,7 @@ set_golangdirs() {
         mkdir ~/Workplace/golang/bin
         mkdir ~/Workplace/golang/pkg
 
-        echo "Setting gopath directory up"
+        echo "Setting gopath directory up, this is the default GOPATH"
         mkdir ~/go/src
         mkdir ~/go/bin
         mkdir ~/go/pkg
