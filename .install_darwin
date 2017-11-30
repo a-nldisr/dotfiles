@@ -2,12 +2,20 @@
 
 # Mac download and install packages
 
+
+# This installs brew, brew is handy when you cannot bother to deal with docker on macbook
 get_brew(){
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
 get_vscode(){
-curl --silent https://some_url/vscode_${vscode_version}.dmg -o ~/Downloads/
+# vscode only follows a redirect
+echo "Downloading vscode"
+curl --silent -L https://go.microsoft.com/fwlink/?LinkID=620882 -o ~/Downloads/vscode.zip
+echo "Download complete"
+# Place the .app file directly in the Applications folder
+echo "Placing vscode in Applications folder"
+unzip ~/Downloads/vscode.zip -d /Applications/
 }
 
 get_sublime(){
