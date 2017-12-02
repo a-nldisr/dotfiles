@@ -25,8 +25,9 @@ install_sublime(){
         echo "Download complete, installing sublime"
         hdiutil attach ~/Downloads/sublime.dmg
         sudo cp -Rf /Volumes/Sublime\ Text/Sublime\ Text.app /Applications
-        echo "Cleaning up"
+        echo "Detaching volume"
         hdiutil detach /Volumes/Sublime\ Text/
+        echo "Installation complete"
 }
 
 get_keepassyc() {
@@ -34,7 +35,14 @@ get_keepassyc() {
 }
 
 get_brave() {
-        curl --silent https://some_url/brave_${brave_version} -o ~/Downloads/
+        echo "Downloading Brave browser"
+        curl --silent -L https://laptop-updates.brave.com/latest/osx -o ~/Downloads/brave.dmg
+        echo "Download complete, installing Brave"
+        hdiutil attach ~/Downloads/brave.dmg
+        sudo cp -Rf /Volumes/Brave/Brave.app /Applications
+        echo "Detaching volume"
+        hdiutil detach /Volumes/Brave
+        echo "Installation complete"
 }
 
 install_firefox() {
