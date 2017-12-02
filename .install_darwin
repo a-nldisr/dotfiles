@@ -30,11 +30,19 @@ install_sublime(){
         echo "Installation complete"
 }
 
-get_keepassyc() {
-        curl --silent https://some_url/keepass_${keepassyc_version} -o ~/Downloads/
+install_keepassyc() {
+        echo "Downloading KeepassXC"
+        export KEEPASSXC_VER=2.2.2
+        curl --silent -L "https://github.com/keepassxreboot/keepassxc/releases/download/${KEEPASSXC_VER}/KeePassXC-${KEEPASSXC_VER}.dmg" -o ~/Downloads/keepass.dmg
+        echo "Download complete, installing sublime"
+        hdiutil attach ~/Downloads/keepass.dmg
+        sudo cp -Rf /Volumes/KeePassXC/KeePassXC.app /Applications
+        echo "Detaching volume"
+        hdiutil detach /Volumes/KeepassXC/
+        echo "Installation complete"
 }
 
-get_brave() {
+install_brave() {
         echo "Downloading Brave browser"
         curl --silent -L https://laptop-updates.brave.com/latest/osx -o ~/Downloads/brave.dmg
         echo "Download complete, installing Brave"
