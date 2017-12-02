@@ -1,21 +1,21 @@
 #!/bin/bash
 
-# Mac download and install packages
+# Macbook download and install packages
 
 
 # This installs brew, i tried so hard to put everything in containers but on mac its gimped
-get_brew(){
+install_brew(){
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
-get_vscode(){
+install_vscode(){
 # Could only get vscode with a redirect
         echo "Downloading vscode"
         curl --silent -L https://go.microsoft.com/fwlink/?LinkID=620882 -o ~/Downloads/vscode.zip
         echo "Download complete"
 # Place the .app file directly in the Applications folder
         echo "Placing vscode in Applications folder"
-        unzip ~/Downloads/vscode.zip -d /Applications/
+        sudo unzip ~/Downloads/vscode.zip -d /Applications/
 }
 
 get_sublime(){
@@ -30,16 +30,26 @@ get_brave() {
         curl --silent https://some_url/brave_${brave_version} -o ~/Downloads/
 }
 
-get_chrome() {
+install_firefox() {
+        echo "Downloading Firefox"
+        curl -L "https://download.mozilla.org/?product=firefox-latest-ssl&os=osx&lang=en-US" -o ~/Downloads/firefox.dmg
+        echo "Download complete, installing"
+        
+        hdiutil attach ~/Downloads/firefox.dmg
+        sudo cp -Rf /Volumes/Firefox/Firefox.app /Applications
+        echo "Firefox installation is complete"
+        hdiutil detach /Volumes/Firefox
+}
+
+install_chrome() {
         echo "Downloading Google Chrome"
         curl --silent https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg -o ~/Downloads/googlechrome.dmg
         echo "Download complete, installing chrome"
 
         hdiutil attach ~/Downloads/googlechrome.dmg
-        sudo /usr/sbin/installer -pkg /Volumes/Google\ Chrome/Google\ Chrome.app -target / -verboseR
+        sudo cp -Rf /Volumes/Google\ Chrome/Google\ Chrome.app /Applications
         echo "Chrome installation is complete"
-        hdiutil detach /Volumes/Google\ Chrome/
-        echo "Cleaned up"
+        hdiutil detach /Volumes/Google\ Chrome
 }
 
 set_basedirs() {
