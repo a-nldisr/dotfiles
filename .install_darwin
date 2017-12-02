@@ -18,8 +18,15 @@ install_vscode(){
         sudo unzip ~/Downloads/vscode.zip -d /Applications/
 }
 
-get_sublime(){
-        curl --silent https://some_url/sublime_${sublime_version}.dmg -o ~/Downloads/
+install_sublime(){
+        echo "Downloading sublime"
+        export SUBLIME_VER=203143
+        curl --silent "https://download.sublimetext.com/Sublime%20Text%20Build%${SUBLIME_VER}.dmg" -o ~/Downloads/sublime.dmg
+        echo "Download complete, installing sublime"
+        hdiutil attach ~/Downloads/sublime.dmg
+        sudo cp -Rf /Volumes/Sublime\ Text/Sublime\ Text.app /Applications
+        echo "Cleaning up"
+        hdiutil detach /Volumes/Sublime\ Text/
 }
 
 get_keepassyc() {
@@ -34,11 +41,11 @@ install_firefox() {
         echo "Downloading Firefox"
         curl -L "https://download.mozilla.org/?product=firefox-latest-ssl&os=osx&lang=en-US" -o ~/Downloads/firefox.dmg
         echo "Download complete, installing"
-        
         hdiutil attach ~/Downloads/firefox.dmg
         sudo cp -Rf /Volumes/Firefox/Firefox.app /Applications
         echo "Firefox installation is complete"
         hdiutil detach /Volumes/Firefox
+        echo "Cleaned up"
 }
 
 install_chrome() {
