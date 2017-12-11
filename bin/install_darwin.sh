@@ -138,6 +138,7 @@ install_golang() {
 	go get golang.org/x/tools/cmd/goimports
 	go get golang.org/x/tools/cmd/gorename
 	go get golang.org/x/tools/cmd/guru
+        go get github.com/derekparker/delve/cmd/dlv
         )
 }
 
@@ -183,24 +184,75 @@ install_virtualbox() {
 
 # Brew Section, introduced this since docker really messed up network, sound, passing through arguments. One day Docker will be made great again
 
+check_brew() {
+        if command -v brew &>/dev/null; then
+            echo "Checking requirements: Brew... ok"
+        else 
+            echo "Installing requirements..."
+            install_brew           
+        fi
+}
 install_shellcheck() {
+        check_brew
         brew install shellcheck
 }
 
 install_python3() {
+        check_brew
         brew install python3
+	install_pip
 }
 
 install_ansible() {
         if command -v python3 &>/dev/null; then
             echo "Installing ansible"
         else
-        install_python3
+	    echo "Installing requirements..."
+            install_python3
         fi
+        check_brew
         brew install ansible
 }
 
 install_pip() {
+        check_brew
         brew install pip
 }
 
+usage() {
+	echo -e "This script installs my basic setup for a Macbook\n"
+	echo "Usage:"
+	echo "  base                        - Sets basics such as paths"
+	echo "  python                      - Installs Python 3"
+        echo "  ansible                     - Installs Ansible"
+        echo "  browser                     - Installs Browsers"
+	echo "  golang                      - Installs Golang"
+}
+
+main() {
+	local cmd=$1
+
+	if [[ -z "$cmd" ]]; then
+		usage
+		exit 1
+	fi
+
+        if [[ $cmd == "base" ]]; then
+		set_basedirs		
+	elif [[ $cmd == "python" ]]; then
+		install_python3
+	elif [[ $cmd == "ansible" ]]; then
+		install_ansible
+	elif [[ $cmd == "browser" ]]; then
+		install_chrome
+		install_firefox
+		install_brave
+        elif [[ $cmd == "golang" ]]; then
+		set_golangdirs
+		install_golang	
+	else
+		usage
+	fi
+}
+
+main "$@"
