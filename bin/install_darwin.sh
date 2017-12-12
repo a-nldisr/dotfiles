@@ -33,7 +33,7 @@ install_sublime(){
 install_keepassyc() {
         echo "Downloading KeepassXC"
         export KEEPASSXC_VER=2.2.2
-        curl --silent -L "https://github.com/keepassxreboot/keepassxc/releases/download/${KEEPASSXC_VER}/KeePassXC-${KEEPASSXC_VER}.dmg" -o ~/Downloads/keepass.dmg
+        curl --silent -L https://github.com/keepassxreboot/keepassxc/releases/download/${KEEPASSXC_VER}/KeePassXC-${KEEPASSXC_VER}.dmg -o ~/Downloads/keepass.dmg
         echo "Download complete, installing sublime"
         hdiutil attach ~/Downloads/keepass.dmg
         sudo cp -Rf /Volumes/KeePassXC/KeePassXC.app /Applications
@@ -101,8 +101,6 @@ set_golangdirs() {
         mkdir ~/go/pkg
 }
 
-
-
 install_golang() {
         export GO_VERSION=1.9
         export GO_SRC=/usr/local/go
@@ -120,8 +118,8 @@ install_golang() {
 	# Subshell install go
 	(
         # Darwin installer requires a path, thus we do not pipe this yet
-	curl --silent "https://storage.googleapis.com/golang/go${GO_VERSION}.darwin-amd64.pkg" -o ~/Downloads/go${GO_VERSION}.darwin-amd64.pkg 
-        sudo /usr/sbin/installer -pkg ~/Downloads/go${GO_VERSION}.darwin-amd64.pkg -target / -verboseR
+	curl --silent https://storage.googleapis.com/golang/go"${GO_VERSION}".darwin-amd64.pkg -o ~/Downloads/go"${GO_VERSION}".darwin-amd64.pkg 
+        sudo /usr/sbin/installer -pkg ~/Downloads/go"${GO_VERSION}".darwin-amd64.pkg -target / -verboseR
 	local user="$USER"
 	# rebuild stdlib for faster builds
 	sudo chown -R "${user}" /usr/local/go/pkg
@@ -219,14 +217,20 @@ install_pip() {
         brew install pip
 }
 
+install_neovim() {
+	check_brew
+	brew install neovim
+}
+
 usage() {
 	echo -e "This script installs my basic setup for a Macbook\n"
 	echo "Usage:"
 	echo "  base                        - Sets basics such as paths"
 	echo "  python                      - Installs Python 3"
         echo "  ansible                     - Installs Ansible"
-        echo "  browser                     - Installs Browsers"
+        echo "  browsers                    - Installs Browsers"
 	echo "  golang                      - Installs Golang"
+	echo "  ide                         - Installs IDEs"
 }
 
 main() {
@@ -250,6 +254,10 @@ main() {
         elif [[ $cmd == "golang" ]]; then
 		set_golangdirs
 		install_golang	
+	elif [[ $cmd == "ide"  ]]; then
+		install_vscode
+		install_sublime
+		install_neovim
 	else
 		usage
 	fi
