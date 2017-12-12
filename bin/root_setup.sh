@@ -16,16 +16,16 @@ check_sudo_user() {
     if [ $SUDO_USER ]; then 
         USERNAME=$SUDO_USER
         else USERNAME=$(find /Users/* -maxdepth 0 -printf "%f" -type d || echo "$USER")
-        fi
+    fi
 }
 
 setup_sudoers() {
     # I know what im doing, but when i don't lock my pc that one time in history... Please kick the shit out of me.
     { \
-		echo -e 'Defaults	secure_path="/usr/local/go/bin:/Users/${SUDO_USER}/.go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'; \
+		echo -e 'Defaults	secure_path="/usr/local/go/bin:/Users/${USERNAME}/.go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'; \
 		echo -e 'Defaults	env_keep += "ftp_proxy http_proxy https_proxy no_proxy GOPATH EDITOR"'; \
-		echo -e "${SUDO_USER} ALL=(ALL) NOPASSWD:ALL"; \
-		echo -e "${SUDO_USER} ALL=NOPASSWD: /usr/sbin/installer"; \
+		echo -e "${USERNAME} ALL=(ALL) NOPASSWD:ALL"; \
+		echo -e "${USERNAME} ALL=NOPASSWD: /usr/sbin/installer"; \
 	} >> /etc/sudoers
 }
 
