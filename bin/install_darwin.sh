@@ -151,15 +151,6 @@ install_vagrant() {
         )
 }
 
-setup_sudoers() {
-        { \
-		echo -e 'Defaults	secure_path="/usr/local/go/bin:/home/${USER}/.go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'; \
-		echo -e 'Defaults	env_keep += "ftp_proxy http_proxy https_proxy no_proxy GOPATH EDITOR"'; \
-		echo -e "${TARGET_USER} ALL=(ALL) NOPASSWD:ALL"; \
-		echo -e "${TARGET_USER} ALL=NOPASSWD: /usr/sbin/installer"; \
-	} >> /etc/sudoers
-}
-
 install_virtualbox() {
         # Installation of virtualbox and extension pack
         export VIRTUALBOX_VER=5.1.26
