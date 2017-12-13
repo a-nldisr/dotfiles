@@ -13,7 +13,7 @@ check_sudo() {
 
 check_sudo_user() {
     # This assumes SUDO_USER is set, which is default on mac. Else we assume there is only 1 user on this system. Its not perfect.
-    if [ $SUDO_USER ]; then 
+    if [ "$SUDO_USER" ]; then 
         USERNAME=$SUDO_USER
     else 
         USERNAME=$(find /Users/* -maxdepth 0 -printf "%f" -type d || echo "$USER")
