@@ -17,10 +17,10 @@ set_display_ip(){
   # If wired is not connected we check for internal range
   if [ -z ${ip} ]; then
     echo "ip is not set, trying 192 range"
-    export ip=`ifconfig | grep 192| awk '$1=="inet" {print $2}'`
+    export ip=`ifconfig | grep "192."| awk '$1=="inet" {print $2}'`
       if [ -z ${ip} ]; then
         echo "192 returned nothing, trying 10"
-        export ip=`ifconfig | grep 10| awk '$1=="inet" {print $2}'`
+        export ip=`ifconfig | grep "10."| awk '$1=="inet" {print $2}'`
       fi
       else
     echo ip is $ip
