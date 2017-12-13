@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # This installs the vscode extensions
+# Overview of installed extensions can be found: code --list-extensions
 
 install_ext_markdown() {
     code --install-extension DavidAnson.vscode-markdownlint
