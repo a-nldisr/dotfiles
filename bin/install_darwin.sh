@@ -172,6 +172,16 @@ install_virtualbox() {
         )
 }
 
+install_docker() {
+        # Subshell install Docker
+        (
+        curl --silent "https://download.docker.com/mac/stable/Docker.dmg" -o ~/Downloads/Docker.dmg
+        hdiutil attach ~/Downloads/Docker.dmg
+        sudo /usr/sbin/installer -pkg /Volumes/Docker/Docker.pkg -target / -verboseR
+        hdiutil detach /Volumes/Docker
+        )
+}
+
 # Brew Section, introduced this since docker really messed up network, sound, passing through arguments. One day Docker will be made great again
 
 check_brew() {
@@ -235,6 +245,7 @@ usage() {
 	echo "  ide                         - Installs IDEs"
         echo "  vm                          - Installs VirtualBox"
         echo "  vagrant                     - Installs Vagrant"
+        echo "  docker                      - Installs Docker"
 }
 
 main() {
@@ -266,6 +277,8 @@ main() {
                 install_virtualbox
 	elif [[ $cmd == "vagrant"  ]]; then
                 install_vagrant
+	elif [[ $cmd == "docker"  ]]; then
+                install_docker
 	else
 		usage
 	fi
