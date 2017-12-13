@@ -4,21 +4,23 @@
 
 
 # This installs brew, i tried so hard to put everything in containers but on mac its gimped
-install_brew(){
+install_brew() {
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
-install_vscode(){
-# Could only get vscode with a redirect
+install_vscode() {
+        # Could only get vscode with a redirect
         echo "Downloading vscode"
         curl --silent -L https://go.microsoft.com/fwlink/?LinkID=620882 -o ~/Downloads/vscode.zip
         echo "Download complete"
-# Place the .app file directly in the Applications folder
+        # Place the .app file directly in the Applications folder
         echo "Placing vscode in Applications folder"
         sudo unzip ~/Downloads/vscode.zip -d /Applications/
+        # Place the code command to open files with
+        ln -s /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code /usr/local/bin/code
 }
 
-install_sublime(){
+install_sublime() {
         echo "Downloading sublime"
         export SUBLIME_VER=203143
         curl --silent "https://download.sublimetext.com/Sublime%20Text%20Build%${SUBLIME_VER}.dmg" -o ~/Downloads/sublime.dmg
