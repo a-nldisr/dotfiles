@@ -1,8 +1,10 @@
 #!/bin/bash
 
+# This checks the platform and then registers the platform in a variable
 
 register_os(){
-local unamestr=`uname`
+unamestr=$(uname)
+local unamestr
 
 if [[ "$unamestr" == 'Linux' ]]; then
    platform='linux'
