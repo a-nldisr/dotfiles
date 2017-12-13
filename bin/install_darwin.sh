@@ -141,6 +141,7 @@ install_golang() {
 }
 
 install_vagrant() {
+        check_virtualbox
 	export VAGRANT_VER=2.0.0
         # Subshell install Vagrant
         (
@@ -181,6 +182,16 @@ check_brew() {
             install_brew           
         fi
 }
+
+check_virtualbox() {
+        if command -v VirtualBox &>/dev/null; then
+            echo "Checking requirements: VirtualBox... ok"
+        else 
+            echo "Installing requirements..."
+            install_virtualbox           
+        fi
+}
+
 install_shellcheck() {
         check_brew
         brew install shellcheck
@@ -222,6 +233,8 @@ usage() {
         echo "  browsers                    - Installs Browsers"
 	echo "  golang                      - Installs Golang"
 	echo "  ide                         - Installs IDEs"
+        echo "  vm                          - Installs VirtualBox"
+        echo "  vagrant                     - Installs Vagrant"
 }
 
 main() {
@@ -249,6 +262,10 @@ main() {
 		install_vscode
 		install_sublime
 		install_neovim
+	elif [[ $cmd == "vm"  ]]; then
+                install_virtualbox
+	elif [[ $cmd == "vagrant"  ]]; then
+                install_vagrant
 	else
 		usage
 	fi
