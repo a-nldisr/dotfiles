@@ -3,6 +3,30 @@
 # Macbook download and install packages
 
 
+install_all() {
+        # Added only known working functions here
+        set_basedirs
+	install_brew
+	install_python3
+        # Subshell
+        (
+                install_ansible
+                install_shellcheck
+                install_exa
+        )
+	install_chrome
+	install_firefox
+	install_brave
+	set_golangdirs
+	install_golang	
+	install_vscode
+	install_sublime
+	install_neovim
+        install_virtualbox
+        install_vagrant
+        install_docker
+}
+
 # This installs brew, i tried so hard to put everything in containers but on mac its gimped
 install_brew() {
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -248,6 +272,7 @@ install_neovim() {
 usage() {
 	echo -e "This script installs my basic setup for a Macbook\n"
 	echo "Usage:"
+        echo "  all                         - Installs all working tools"
 	echo "  base                        - Sets basics such as paths"
 	echo "  python                      - Installs Python 3"
         echo "  ansible                     - Installs Ansible"
@@ -267,8 +292,9 @@ main() {
 		usage
 		exit 1
 	fi
-
-        if [[ $cmd == "base" ]]; then
+        if [[ $cmd == "all" ]]; then
+		install_all	
+        elif [[ $cmd == "base" ]]; then
 		set_basedirs		
 	elif [[ $cmd == "python" ]]; then
 		install_python3
