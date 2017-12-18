@@ -213,6 +213,11 @@ install_shellcheck() {
         brew install shellcheck
 }
 
+install_exa() {
+        check_brew
+        brew install exa
+}
+
 install_python3() {
         check_brew
         brew install python3
@@ -252,7 +257,7 @@ usage() {
         echo "  vm                          - Installs VirtualBox"
         echo "  vagrant                     - Installs Vagrant"
         echo "  docker                      - Installs Docker"
-        echo "  shellcheck                  - Installs Shellcheck"
+        echo "  shelltools                  - Installs shell tools"
 }
 
 main() {
@@ -286,8 +291,9 @@ main() {
                 install_vagrant
 	elif [[ $cmd == "docker"  ]]; then
                 install_docker
-	elif [[ $cmd == "shellcheck"  ]]; then
+	elif [[ $cmd == "shelltools"  ]]; then
                 install_shellcheck
+                install_exa
 	else
 		usage
 	fi
