@@ -131,6 +131,15 @@ set_golangdirs() {
         mkdir ~/go/pkg
 }
 
+check_golang() {
+        if command -v go &>/dev/null; then
+            echo "Checking requirements: Go... ok"
+        else 
+            echo "Installing requirements..."
+            install_golang          
+        fi
+}
+
 install_golang() {
         export GO_VERSION=1.9
         export GO_SRC=/usr/local/go
@@ -213,6 +222,7 @@ install_docker() {
 }
 
 # Brew Section, introduced this since docker really messed up network, sound, passing through arguments. One day Docker will be made great again
+# All brew installs have a check_brew call to ensure this doesnt fail somewhere
 
 check_brew() {
         if command -v brew &>/dev/null; then
@@ -230,6 +240,13 @@ check_virtualbox() {
             echo "Installing requirements..."
             install_virtualbox           
         fi
+}
+
+install_delve() {
+        # Delve must be installed after Go
+        check_brew
+        check_golang
+        brew install go-delve/delve/delve
 }
 
 install_shellcheck() {
@@ -306,7 +323,8 @@ main() {
 		install_brave
         elif [[ $cmd == "golang" ]]; then
 		set_golangdirs
-		install_golang	
+		install_golang
+                install_delve
 	elif [[ $cmd == "ide"  ]]; then
 		install_vscode
 		install_sublime
