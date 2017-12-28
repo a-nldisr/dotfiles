@@ -156,7 +156,7 @@ install_golang() {
 
 	# Subshell install go
 	(
-        # Darwin installer requires a path, thus we do not pipe this yet
+        # Darwin installer requires a path
 	curl --silent https://storage.googleapis.com/golang/go"${GO_VERSION}".darwin-amd64.pkg -o ~/Downloads/go"${GO_VERSION}".darwin-amd64.pkg 
         sudo /usr/sbin/installer -pkg ~/Downloads/go"${GO_VERSION}".darwin-amd64.pkg -target / -verboseR
 	local user="$USER"
@@ -262,7 +262,7 @@ install_exa() {
 install_python3() {
         check_brew
         brew install python3
-	install_pip
+	setup_python
 }
 
 install_ansible() {
@@ -276,14 +276,23 @@ install_ansible() {
         brew install ansible
 }
 
-install_pip() {
-        check_brew
-        brew install pip
-}
 
 install_neovim() {
 	check_brew
 	brew install neovim
+}
+
+# Setup for a python developer environment
+
+setup_python() {
+        check_brew
+        # Subshell
+        (
+        brew install pex
+        brew install tox
+        brew install pants
+        brew install pip
+        )
 }
 
 usage() {
