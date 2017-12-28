@@ -1,6 +1,6 @@
-.PHONY: all bin dotfiles test 
+.PHONY: all bin dotfiles install test 
 
-all: bin dotfiles 
+all: bin dotfiles install
 
 bin:
 	# add aliases to all in bin
@@ -15,12 +15,14 @@ dotfiles:
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
-	gpg --list-keys || true;
-	ln -sfn $(CURDIR)/.gnupg/gpg.conf $(HOME)/.gnupg/gpg.conf;
-	ln -sfn $(CURDIR)/.gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
 	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
 	git update-index --skip-worktree $(CURDIR)/.gitconfig;
 
+install:
+	/usr/local/bin/root_setup.sh
+	/usr/local/bin/install_darwin all
+	/usr/local/bin/vscode_extensions.sh
+	
 test: 
 	./test.sh
 
