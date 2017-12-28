@@ -9,11 +9,14 @@ local unamestr
 
 if [[ "$unamestr" == 'Linux' ]]; then
    platform='linux'
+   
 elif [[ "$unamestr" == 'FreeBSD' ]]; then
    platform='freebsd'
 elif [[ "$unamestr" == 'Darwin' ]]; then
    platform='darwin'
 fi
+
+echo "We are using ${platform}"
 }
 
 register_os

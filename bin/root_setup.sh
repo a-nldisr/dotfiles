@@ -23,6 +23,7 @@ check_sudo_user() {
 setup_sudoers() {
     # I know what im doing, but when i don't lock my pc that one time in history... Please kick the shit out of me.
     { \
+        # shellcheck disable=SC2086
 		echo -e 'Defaults	secure_path="/usr/local/go/bin:/Users/'${USERNAME}'/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'; \
 		echo -e 'Defaults	env_keep += "ftp_proxy http_proxy https_proxy no_proxy GOPATH EDITOR"'; \
 		echo -e "${USERNAME} ALL=(ALL) NOPASSWD:ALL"; \
