@@ -51,6 +51,10 @@ install_ext_vscodevim() {
     code --install-extension vscodevim.vim
 }
 
+install_ext_shellcheck() {
+    code --install-extension timonwong.shellcheck
+}
+
 main() {
     install_ext_markdown
     install_ext_docker
@@ -64,6 +68,7 @@ main() {
     install_ext_gotheme
     install_ext_mspython
     install_ext_vscodevim
+    install_ext_shellcheck
 }
 
 main
