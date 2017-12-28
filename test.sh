@@ -17,7 +17,7 @@ for f in $(find . -type f -not -iwholename '*.git*' | sort -u); do
 done
 
 if [ ${#ERRORS[@]} -eq 0 ]; then
-	echo "No errors, hooray"
+	echo "No errors, YAY!"
 else
 	echo "These files failed shellcheck: ${ERRORS[*]}"
 	exit 1

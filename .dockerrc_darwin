@@ -6,7 +6,7 @@ export DOCKER_REPO_USER=anldisr
 export DOCKER_HERO=jess
 
 set_xhost(){
-xhost + $ip
+xhost + "$ip"
 }
 
 set_display(){
@@ -15,17 +15,20 @@ export DISPLAY=$ip:0
 
 set_display_ip(){
   # This interface is used in wired connections
-  export ip=`ifconfig en7 | grep inet | awk '$1=="inet" {print $2}'`
+  ip=$(ifconfig en7 | grep inet | awk '$1=="inet" {print $2}')
+  export ip
   # If wired is not connected we check for internal range
-  if [ -z ${ip} ]; then
+  if [ -z "${ip}" ]; then
     echo "ip is not set, trying 192 range"
-    export ip=`ifconfig | grep "192."| awk '$1=="inet" {print $2}'`
-      if [ -z ${ip} ]; then
+	ip=$(ifconfig | grep "192."| awk '$1=="inet" {print $2}')
+    export ip
+      if [ -z "${ip}" ]; then
         echo "192 returned nothing, trying 10"
-        export ip=`ifconfig | grep "10."| awk '$1=="inet" {print $2}'`
+		ip=$(ifconfig | grep "10."| awk '$1=="inet" {print $2}')
+        export ip
       fi
       else
-    echo ip is $ip
+    echo ip is "$ip"
   fi
 }
 
@@ -40,13 +43,13 @@ display_required(){
 # Credits: https://github.com/jessfraz/dotfiles
 dcleanup(){
 	local containers
-	containers=( $(docker ps -aq 2>/dev/null) )
+	containers=( "$(docker ps -aq 2>/dev/null)" )
 	docker rm "${containers[@]}" 2>/dev/null
 	local volumes
-	volumes=( $(docker ps --filter status=exited -q 2>/dev/null) )
+	volumes=( "$(docker ps --filter status=exited -q 2>/dev/null)" )
 	docker rm -v "${volumes[@]}" 2>/dev/null
 	local images
-	images=( $(docker images --filter dangling=true -q 2>/dev/null) )
+	images=( "$(docker images --filter dangling=true -q 2>/dev/null)" )
 	docker rmi "${images[@]}" 2>/dev/null
 }
 
@@ -79,14 +82,14 @@ sublime(){
 display_required
 # Run Docker container
         docker run -d -it \
-			-w $HOME/Documents \
-			-v $HOME/.config/sublime-text-3:$HOME/.config/sublime-text-3 \
-			-v $HOME/Documents:$HOME/Documents \
-			-v $HOME/Git:$HOME/Git \
+			-w "$HOME/Documents" \
+			-v "$HOME/.config/sublime-text-3:$HOME/.config/sublime-text-3" \
+			-v "$HOME/Documents:$HOME/Documents" \
+			-v "$HOME/Git:$HOME/Git" \
 			-v /tmp/.X11-unix:/tmp/.X11-unix \
-			-v $HOME/.local/share/recently-used.xbel:$HOME/.local/share/recently-used.xbel \
-			-e DISPLAY=$ip:0 \
-			-e NEWUSER=$USER \
+			-v "$HOME/.local/share/recently-used.xbel:$HOME/.local/share/recently-used.xbel" \
+			-e "DISPLAY=$ip:0" \
+			-e "NEWUSER=$USER" \
 			-e LANG=en_US.UTF-8 \
 			${DOCKER_HERO}/sublime-text-3:latest
 }
@@ -98,9 +101,9 @@ keepass2(){
         del_stopped keepass2
 
         docker run -it \
-                -v $HOME/.config:/root/ \
+                -v "$HOME/.config:/root/" \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-e DISPLAY=$DISPLAY \
+		-e "DISPLAY=$DISPLAY" \
                 --name keepass2 \
 		${DOCKER_HERO}/keepass2 "$@"
 }
@@ -117,9 +120,8 @@ keypassxc(){
 	del_stopped keypassxc
 
 	docker run -d \
-                -v $HOME/.ssh:$HOME/.ssh:ro \
+                -v "$HOME/.ssh:$HOME/.ssh:ro" \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
-#		-v /usr/share/X11/xkb:/usr/share/X11/xkb:ro \
 		-e "DISPLAY=$ip:0" \
 		-v /etc/machine-id:/etc/machine-id:ro \
 		--name keypassxc \

@@ -296,7 +296,7 @@ setup_python() {
 }
 
 usage() {
-	echo -e "This script installs my basic setup for a Macbook\n"
+	echo -e "This script installs my basic setup for a Macbook\\n"
 	echo "Usage:"
         echo "  all                         - Installs all working tools"
 	echo "  base                        - Sets basics such as paths"
