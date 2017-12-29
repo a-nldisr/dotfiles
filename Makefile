@@ -21,9 +21,7 @@ install:
 	/usr/local/bin/install_darwin.sh all
 	/usr/local/bin/vscode_extensions.sh
 	
-test: 
-	shellcheck
-
+test: shellcheck
 
 # We don't want to attach a TTY if this isnt interactive.
 # If this is interactive users need to be able to ^C
