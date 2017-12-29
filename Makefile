@@ -1,4 +1,4 @@
-.PHONY: all bin dotfiles install test 
+.PHONY: all bin dotfiles install test shellcheck
 
 all: bin dotfiles install
 
@@ -22,7 +22,8 @@ install:
 	/usr/local/bin/vscode_extensions.sh
 	
 test: 
-	./test.sh
+	shellcheck
+
 
 # We don't want to attach a TTY if this isnt interactive.
 # If this is interactive users need to be able to ^C
@@ -31,3 +32,10 @@ INTERACTIVE := $(shell [ -t 0 ] && echo 1 || echo 0)
 ifeq ($(INTERACTIVE), 1)
 	DOCKER_FLAGS += -t
 endif
+
+shellcheck:
+	docker run --rm -i $(DOCKER_FLAGS) \
+		--name df-shellcheck \
+		-v $(CURDIR):/usr/src:ro \
+		--workdir /usr/src \
+		r.j3ss.co/shellcheck ./test.sh
