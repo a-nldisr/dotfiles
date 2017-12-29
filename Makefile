@@ -15,12 +15,10 @@ dotfiles:
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
-	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
-	git update-index --skip-worktree $(CURDIR)/.gitconfig;
 
 install:
-	/usr/local/bin/root_setup.sh
-	/usr/local/bin/install_darwin all
+	sudo ./bin/root_setup.sh
+	/usr/local/bin/install_darwin.sh all
 	/usr/local/bin/vscode_extensions.sh
 	
 test: 
