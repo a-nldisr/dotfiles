@@ -216,7 +216,7 @@ install_docker() {
         (
         curl --silent "https://download.docker.com/mac/stable/Docker.dmg" -o ~/Downloads/Docker.dmg
         hdiutil attach ~/Downloads/Docker.dmg
-        sudo /usr/sbin/installer -pkg /Volumes/Docker/Docker.pkg -target / -verboseR
+        sudo cp -Rf /Volumes/Docker/Docker.app /Applications
         hdiutil detach /Volumes/Docker
         )
 }
