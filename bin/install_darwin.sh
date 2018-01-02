@@ -265,6 +265,11 @@ install_python3() {
 	setup_python
 }
 
+install_terraform() {
+        check_brew
+        brew install terraform
+}
+
 install_ansible() {
         if command -v python3 &>/dev/null; then
             echo "Installing ansible"
@@ -307,6 +312,7 @@ usage() {
 	echo "  ide                         - Installs IDEs"
         echo "  vm                          - Installs VirtualBox"
         echo "  vagrant                     - Installs Vagrant"
+        echo "  terraform                   - Installs Terraform"
         echo "  docker                      - Installs Docker"
         echo "  shelltools                  - Installs shell tools"
         echo "  security                    - Installs security tools"
@@ -345,6 +351,8 @@ main() {
                 install_vagrant
 	elif [[ $cmd == "docker"  ]]; then
                 install_docker
+        elif [[ $cmd == "terraform" ]]; then
+                install_terraform
 	elif [[ $cmd == "shelltools"  ]]; then
                 install_shellcheck
                 install_exa
