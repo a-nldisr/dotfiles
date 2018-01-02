@@ -25,6 +25,9 @@ install_all() {
         install_virtualbox
         install_vagrant
         install_docker
+        install_terraform
+        install_azurecli
+        install_keepassyc
 }
 
 # This installs brew, i tried so hard to put everything in containers but on mac its gimped
@@ -270,6 +273,11 @@ install_terraform() {
         brew install terraform
 }
 
+install_azurecli() {
+        check_brew
+        brew install azure-cli
+}
+
 install_ansible() {
         if command -v python3 &>/dev/null; then
             echo "Installing ansible"
@@ -353,6 +361,8 @@ main() {
                 install_docker
         elif [[ $cmd == "terraform" ]]; then
                 install_terraform
+        elif [[ $cmd == "azure" ]]; then
+                install_azurecli
 	elif [[ $cmd == "shelltools"  ]]; then
                 install_shellcheck
                 install_exa
