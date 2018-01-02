@@ -55,6 +55,10 @@ install_ext_shellcheck() {
     code --install-extension timonwong.shellcheck
 }
 
+install_ext_terraform() {
+    code --install-extension mauve.terraform
+}
+
 main() {
     install_ext_markdown
     install_ext_docker
@@ -69,6 +73,7 @@ main() {
     install_ext_mspython
     install_ext_vscodevim
     install_ext_shellcheck
+    install_ext_terraform
 }
 
 main
