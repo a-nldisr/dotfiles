@@ -309,6 +309,7 @@ usage() {
         echo "  vagrant                     - Installs Vagrant"
         echo "  docker                      - Installs Docker"
         echo "  shelltools                  - Installs shell tools"
+        echo "  security                    - Installs security tools"
 }
 
 main() {
@@ -347,6 +348,8 @@ main() {
 	elif [[ $cmd == "shelltools"  ]]; then
                 install_shellcheck
                 install_exa
+	elif [[ $cmd == "security" ]]; then
+		install_keepassyc
 	else
 		usage
 	fi
