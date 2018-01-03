@@ -28,6 +28,7 @@ install_all() {
         install_terraform
         install_azurecli
         install_keepassyc
+        install_dcoscli
 }
 
 # This installs brew, i tried so hard to put everything in containers but on mac its gimped
@@ -216,11 +217,22 @@ install_virtualbox() {
 
 install_docker() {
         # Subshell install Docker
+        echo "Installing Docker"
         (
         curl --silent "https://download.docker.com/mac/stable/Docker.dmg" -o ~/Downloads/Docker.dmg
         hdiutil attach ~/Downloads/Docker.dmg
         sudo cp -Rf /Volumes/Docker/Docker.app /Applications
         hdiutil detach /Volumes/Docker
+        )
+        echo "Installation done, you need to start Docker to do post-intall setup"
+}
+
+install_dcoscli() {
+        export DCOSCLI_VER=1.8
+        # Subshell install dcoscli
+        (
+        curl --silent "https://downloads.dcos.io/binaries/cli/darwin/x86-64/dcos-${DCOSCLI_VER}/dcos" -o /usr/local/bin/dcos
+        chmod +x /usr/local/bin/dcos
         )
 }
 
@@ -324,6 +336,7 @@ usage() {
         echo "  docker                      - Installs Docker"
         echo "  shelltools                  - Installs shell tools"
         echo "  security                    - Installs security tools"
+        echo "  dcoscli                     - Installs dcos-cli"
 }
 
 main() {
@@ -363,6 +376,8 @@ main() {
                 install_terraform
         elif [[ $cmd == "azure" ]]; then
                 install_azurecli
+        elif [[ $cmd == "dcoscli" ]]; then
+                install_dcoscli
 	elif [[ $cmd == "shelltools"  ]]; then
                 install_shellcheck
                 install_exa
