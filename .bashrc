@@ -12,3 +12,5 @@ for file in ~/.{path,dockerrc_${platform:?},}; do
 done
 unset file
 
+# This is to enable Azure cli interactive without UTF-8 errors more info in azure-cli issues 4536
+export LC_CTYPE=en
