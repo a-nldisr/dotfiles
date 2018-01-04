@@ -4,10 +4,13 @@ set -e
 # This checks the platform and then registers the platform in a variable
 
 register_os(){
+local unamestr
 unamestr=$(uname)
-local -r unamestr
 
-if [[ "$unamestr" == 'Linux' ]]; then
+if [[ -z "$unamestr" ]]; then
+    platform='unset'
+    echo "${platform} platform"
+elif [[ "$unamestr" == 'Linux' ]]; then
    platform='linux'
 elif [[ "$unamestr" == 'FreeBSD' ]]; then
    platform='freebsd'
@@ -15,7 +18,7 @@ elif [[ "$unamestr" == 'Darwin' ]]; then
    platform='darwin'
 fi
 
-echo "We are using ${platform}"
+
 }
 
 register_os
