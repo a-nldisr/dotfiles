@@ -4,7 +4,6 @@ all: bin dotfiles install
 
 bin:
 	# add aliases to all in bin
-	sudo mkdir /usr/local/bin; \ 
 	for file in $(shell find $(CURDIR)/bin -type f -not -name "*-backlight" -not -name ".*.swp"); do \
 		f=$$(basename $$file); \
 		sudo ln -sf $$file /usr/local/bin/$$f; \
