@@ -5,11 +5,10 @@ set -e
 
 register_os(){
 unamestr=$(uname)
-local unamestr
+local -r unamestr
 
 if [[ "$unamestr" == 'Linux' ]]; then
    platform='linux'
-   
 elif [[ "$unamestr" == 'FreeBSD' ]]; then
    platform='freebsd'
 elif [[ "$unamestr" == 'Darwin' ]]; then
