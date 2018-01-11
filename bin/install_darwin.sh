@@ -117,22 +117,29 @@ set_basedirs() {
 }
 
 set_golangdirs() {
-        echo "Setting general golang Playground directory"
-        mkdir ~/Playground/golang
-        mkdir ~/Playground/golang/src
-        mkdir ~/Playground/golang/bin
-        mkdir ~/Playground/golang/pkg
+        if [[ ! -d ~/Playground/golang ]]; then
+                echo "Setting general golang Playground directory"
+                mkdir ~/Playground/golang
+                mkdir ~/Playground/golang/src
+                mkdir ~/Playground/golang/bin
+                mkdir ~/Playground/golang/pkg
+        fi
 
-        echo "Setting general golang Workplace directory"
-        mkdir ~/Workplace/golang
-        mkdir ~/Workplace/golang/src
-        mkdir ~/Workplace/golang/bin
-        mkdir ~/Workplace/golang/pkg
+        if [[ ! -d ~/Workplace/golang ]]; then
+                echo "Setting general golang Workplace directory"
+                mkdir ~/Workplace/golang
+                mkdir ~/Workplace/golang/src
+                mkdir ~/Workplace/golang/bin
+                mkdir ~/Workplace/golang/pkg
+        fi
 
-        echo "Setting gopath directory up, this is the default GOPATH"
-        mkdir ~/go/src
-        mkdir ~/go/bin
-        mkdir ~/go/pkg
+        if [[ ! -d ~/go/ ]]; then
+                echo "Setting gopath directory up, this is the default GOPATH"
+                mkdir ~/go
+                mkdir -p ~/go/src
+                mkdir -p ~/go/bin
+                mkdir -p ~/go/pkg
+        fi
 }
 
 check_golang() {
@@ -145,10 +152,12 @@ check_golang() {
 }
 
 install_golang() {
-        export GO_VERSION=1.9
+	export GO_VERSION
+        GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
         export GO_SRC=/usr/local/go
+	GO_VERSION=${GO_VERSION#go}
 
-        # Passing version
+        # You can pass version
 	if [[ ! -z "$1" ]]; then
 		export GO_VERSION=$1
 	fi
@@ -156,6 +165,7 @@ install_golang() {
 	# Purge old GO_SRC
 	if [[ -d "$GO_SRC" ]]; then
 		sudo rm -rf "$GO_SRC"
+	        sudo rm -rf "$GOPATH"
 	fi
 
 	# Subshell install go
@@ -361,7 +371,6 @@ main() {
         elif [[ $cmd == "golang" ]]; then
 		set_golangdirs
 		install_golang
-                install_delve
 	elif [[ $cmd == "ide"  ]]; then
 		install_vscode
 		install_sublime
