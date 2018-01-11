@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # This checks the platform and then registers the platform in a variable
 
