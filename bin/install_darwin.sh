@@ -190,7 +190,7 @@ install_vagrant() {
         (
         curl --silent "https://releases.hashicorp.com/vagrant/${VAGRANT_VER}/vagrant_${VAGRANT_VER}_x86_64.dmg" -o ~/Downloads/vagrant_${VAGRANT_VER}_x86_64.dmg
         hdiutil attach ~/Downloads/vagrant_${VAGRANT_VER}_x86_64.dmg
-        sudo /usr/sbin/installer -pkg /Volumes/Vagrant/vagrant.pkg -target / -verboseR
+        sudo /usr/sbin/installer -pkg /Volumes/Vagrant/vagrant.pkg -target / -verboseR -allowUntrusted
         hdiutil detach /Volumes/Vagrant/
         )
 }
