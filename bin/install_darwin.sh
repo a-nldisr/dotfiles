@@ -357,9 +357,9 @@ main() {
 		exit 1
 	fi
         if [[ $cmd == "all" ]]; then
-		install_all	
+		install_all
         elif [[ $cmd == "base" ]]; then
-		set_basedirs		
+		set_basedirs
 	elif [[ $cmd == "python" ]]; then
 		install_python3
 	elif [[ $cmd == "ansible" ]]; then
