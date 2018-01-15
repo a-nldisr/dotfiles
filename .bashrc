@@ -15,4 +15,5 @@ unset file
 # This is to enable Azure cli interactive without UTF-8 errors more info in azure-cli issues 4536
 export LC_CTYPE=en
 
+alias privategit="cd ~/Git/private/"
 alias gitdir="cd ~/Git"
