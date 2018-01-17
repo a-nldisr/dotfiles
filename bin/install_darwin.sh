@@ -29,6 +29,7 @@ install_all() {
         install_azurecli
         install_keepassyc
         install_dcoscli
+        install_packer
 }
 
 # This installs brew, i tried so hard to put everything in containers but on mac its gimped
@@ -107,6 +108,14 @@ install_chrome() {
         sudo cp -Rf /Volumes/Google\ Chrome/Google\ Chrome.app /Applications
         echo "Chrome installation is complete"
         hdiutil detach /Volumes/Google\ Chrome
+}
+
+install_packer() {
+        export PACKER_VER=1.1.3
+        echo "Downloading Packer"
+        curl --silent https://releases.hashicorp.com/packer/${PACKER_VER}/packer_${PACKER_VER}_darwin_amd64.zip -o ~/Downloads/packer.zip
+        sudo unzip ~/Downloads/packer.zip -d /usr/local/bin/
+        sudo chmod +x /usr/local/bin/packer
 }
 
 set_basedirs() {
@@ -202,6 +211,7 @@ install_vagrant() {
         hdiutil attach ~/Downloads/vagrant_${VAGRANT_VER}_x86_64.dmg
         sudo /usr/sbin/installer -pkg /Volumes/Vagrant/vagrant.pkg -target / -verboseR -allowUntrusted
         hdiutil detach /Volumes/Vagrant/
+        # Its possible that Mac OSX blocks virtual box. You then need to remove the warning from Settings > Privacy & security and allow Oracle in the general tab.
         )
 }
 
@@ -383,6 +393,8 @@ main() {
                 install_docker
         elif [[ $cmd == "terraform" ]]; then
                 install_terraform
+        elif [[ $cmd == "packer" ]]; then
+                install_packer
         elif [[ $cmd == "azure" ]]; then
                 install_azurecli
         elif [[ $cmd == "dcoscli" ]]; then
