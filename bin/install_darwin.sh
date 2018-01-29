@@ -321,6 +321,16 @@ install_ansible() {
         brew install ansible
 }
 
+set_updatedb() {
+        echo "Setting symlink for updatedb"
+        ln -s /usr/libexec/locate.updatedb /usr/local/bin/updatedb
+        echo "Done"
+}
+
+set_locate() {
+        echo "Allowing locate command"
+        sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+}
 
 install_neovim() {
 	check_brew
@@ -402,6 +412,8 @@ main() {
 	elif [[ $cmd == "shelltools"  ]]; then
                 install_shellcheck
                 install_exa
+                set_locate
+                set_updatedb
 	elif [[ $cmd == "security" ]]; then
 		install_keepassyc
 	else
