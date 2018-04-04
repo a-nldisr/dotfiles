@@ -321,6 +321,10 @@ install_ansible() {
         brew install ansible
 }
 
+install_bashcompletion() {
+	brew install bash-completion
+}
+
 set_updatedb() {
         echo "Setting symlink for updatedb"
         ln -s /usr/libexec/locate.updatedb /usr/local/bin/updatedb
