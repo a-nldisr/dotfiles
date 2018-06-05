@@ -341,6 +341,11 @@ install_neovim() {
 	brew install neovim
 }
 
+install_iterm2() {
+	check_brew
+	brew install homebrew/cask/iterm2
+}
+
 # Setup for a python developer environment
 
 setup_python() {
@@ -418,6 +423,7 @@ main() {
                 install_exa
                 set_locate
                 set_updatedb
+		install_iterm2
 	elif [[ $cmd == "security" ]]; then
 		install_keepassyc
 	else
