@@ -217,12 +217,12 @@ arping(){
 		arping "$@"
 }
 
-shellcheck(){
-        docker run --rm -it \
-                --net host \
-                -v "$PWD:/mnt" \
-                koalaman/shellcheck "$@"
-}
+#shellcheck(){
+#        docker run --rm -it \
+#                --net host \
+#                -v "$PWD:/mnt" \
+#                koalaman/shellcheck "$@"
+#}
 
 # Tried to get this working, but in the end i gave up. Passing documents to containers just sucks sometimes
 #ansible-playbook(){
