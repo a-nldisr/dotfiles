@@ -11,8 +11,7 @@ install_all() {
         # Subshell
         (
                 install_ansible
-                install_shellcheck
-                install_exa
+                install_shelltools
         )
 	install_chrome
 	install_firefox
@@ -22,6 +21,7 @@ install_all() {
 	install_vscode
 	install_sublime
 	install_neovim
+	install_pathogen
         install_virtualbox
         install_vagrant
         install_docker
@@ -289,6 +289,11 @@ install_shellcheck() {
         brew install shellcheck
 }
 
+install_ncdu() {
+        check_brew
+        brew install ncdu
+}
+
 install_exa() {
         check_brew
         brew install exa
@@ -339,6 +344,29 @@ set_locate() {
 install_neovim() {
 	check_brew
 	brew install neovim
+}
+
+install_pathogen() {
+	echo "Installing vim pathogen"
+	if [ ! -d ~/.vim/autoload ]; then
+	  mkdir -p ~/.vim/autoload ~/.vim/bundle
+	fi
+	curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+	if [ ! -f ~/.vimrc ]; then
+		echo "No vimrc file found, creating it"
+		echo "execute pathogen#infect()" > ~/.vimrc
+		echo "syntax on" >> ~/.vimrc
+		echo "filetype plugin indent on" >> ~/.vimrc
+	else
+		echo "vimrc file found, checking for required line"
+		if grep -Fxq "execute pathogen#infect()" ~/.vimrc; then
+			echo "Pathogen correctly setup"
+		else
+			echo "Adding pathogen line in vimrc file"
+	                echo "execute pathogen#infect()" >> ~/.vimrc
+		fi
+	fi
 }
 
 install_iterm2() {
@@ -400,15 +428,17 @@ main() {
         elif [[ $cmd == "golang" ]]; then
 		set_golangdirs
 		install_golang
-	elif [[ $cmd == "ide"  ]]; then
+	elif [[ $cmd == "ide" ]]; then
 		install_vscode
 		install_sublime
+	elif [[ $cmd == "vim" ]]; then
 		install_neovim
-	elif [[ $cmd == "vm"  ]]; then
+		install_pathogen
+	elif [[ $cmd == "vm" ]]; then
                 install_virtualbox
-	elif [[ $cmd == "vagrant"  ]]; then
+	elif [[ $cmd == "vagrant" ]]; then
                 install_vagrant
-	elif [[ $cmd == "docker"  ]]; then
+	elif [[ $cmd == "docker" ]]; then
                 install_docker
         elif [[ $cmd == "terraform" ]]; then
                 install_terraform
@@ -418,7 +448,7 @@ main() {
                 install_azurecli
         elif [[ $cmd == "dcoscli" ]]; then
                 install_dcoscli
-	elif [[ $cmd == "shelltools"  ]]; then
+	elif [[ $cmd == "shelltools" ]]; then
                 install_shellcheck
                 install_exa
                 set_locate
