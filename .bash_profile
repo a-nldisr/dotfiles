@@ -12,4 +12,5 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 
 # Make history usefull
 HISTFILESIZE=10000000
+HISTSIZE=10000000
 
