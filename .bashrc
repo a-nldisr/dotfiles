@@ -14,6 +14,12 @@ unset file
 
 # This is to enable Azure cli interactive without UTF-8 errors more info in azure-cli issues 4536
 export LC_CTYPE=en
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages
+export GOOS="darwin"
+export GOARCH="amd64"
+export VAULT_PASSWORD="$(cat ~/.employer_files/.ansible_vault.txt)"
+export PATH=$HOME/Library/Python/3.7/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/rogierdikkes/Library/Python/3.6/bin:/usr/local/go/bin:/Users/rogierdikkes/go/bin:/usr/share/bcc/tools:/sbin
 
 alias privategit="cd ~/Git/private/"
 alias gitdir="cd ~/Git"
+alias bcard="cd ~/go/src/bitbucket.org/a-nldisr/bcard"
