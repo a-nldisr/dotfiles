@@ -289,6 +289,11 @@ install_shellcheck() {
         brew install shellcheck
 }
 
+install_fzf() {
+	check_brew
+	brew install fzf
+}
+
 install_ncdu() {
         check_brew
         brew install ncdu
@@ -454,6 +459,7 @@ main() {
                 set_locate
                 set_updatedb
 		install_iterm2
+		install_fzf
 	elif [[ $cmd == "security" ]]; then
 		install_keepassyc
 	else
@@ -462,3 +468,4 @@ main() {
 }
 
 main "$@"
+

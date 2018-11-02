@@ -24,3 +24,12 @@ export PATH=$HOME/Library/Python/3.7/bin:/usr/local/bin:/usr/local/go/bin:/usr/l
 alias privategit="cd ~/Git/private/"
 alias gitdir="cd ~/Git"
 alias bcard="cd ~/go/src/bitbucket.org/a-nldisr/bcard"
+alias vim="nvim"
+
+# Functions go here
+gbr() {
+  local branches branch
+  branches=$(git branch -vv) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git checkout "$(echo "$branch" | awk '{print $1}' | sed "s/.* //")"
+}
