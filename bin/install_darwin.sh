@@ -289,6 +289,11 @@ install_shellcheck() {
         brew install shellcheck
 }
 
+install_coreutils() {
+	check_brew
+	brew install coreutils
+}
+
 install_fzf() {
 	check_brew
 	brew install fzf
@@ -460,6 +465,7 @@ main() {
                 set_updatedb
 		install_iterm2
 		install_fzf
+		install_coreutils
 	elif [[ $cmd == "security" ]]; then
 		install_keepassyc
 	else
