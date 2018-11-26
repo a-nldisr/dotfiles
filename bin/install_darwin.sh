@@ -384,6 +384,16 @@ install_iterm2() {
 	brew install homebrew/cask/iterm2
 }
 
+install_shelltools() {
+        install_shellcheck
+        install_exa
+        set_locate
+        set_updatedb
+	install_iterm2
+	install_fzf
+	install_coreutils
+}
+
 # Setup for a python developer environment
 
 setup_python() {
