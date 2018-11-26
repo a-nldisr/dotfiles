@@ -1,0 +1,18 @@
+{
+    "git.autofetch": true,
+    "python.disablePromptForFeatures": [
+        "pylint"
+    ],
+    "git.enableSmartCommit": true,
+    "gitlens.keymap": "chorded",
+    "window.zoomLevel": 0,
+    "gitlens.advanced.messages": {
+        "suppressLineUncommittedWarning": true,
+        "suppressShowKeyBindingsNotice": true
+    },
+    "telemetry.enableTelemetry": false,
+    "gitlens.advanced.telemetry.enabled": false,
+    "extensions.ignoreRecommendations": true,
+    "workbench.colorTheme": "Cobalt2",
+    "editor.fontLigatures": true
+}
