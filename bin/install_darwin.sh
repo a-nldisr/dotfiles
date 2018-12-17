@@ -111,7 +111,7 @@ install_chrome() {
 }
 
 install_packer() {
-        export PACKER_VER=1.1.3
+        export PACKER_VER=1.3.2
         echo "Downloading Packer"
         curl --silent https://releases.hashicorp.com/packer/${PACKER_VER}/packer_${PACKER_VER}_darwin_amd64.zip -o ~/Downloads/packer.zip
         sudo unzip ~/Downloads/packer.zip -d /usr/local/bin/
