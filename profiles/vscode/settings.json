@@ -14,5 +14,8 @@
     "gitlens.advanced.telemetry.enabled": false,
     "extensions.ignoreRecommendations": true,
     "workbench.colorTheme": "Cobalt2",
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace, 'Fira Code'",
+    "explorer.openEditors.visible": 5,
+    "extensions.showRecommendationsOnlyOnDemand": true,
 }

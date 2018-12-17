@@ -19,6 +19,7 @@ dotfiles:
 install:
 	sudo ./bin/root_setup.sh
 	/usr/local/bin/install_darwin.sh all
+	/usr/local/bin/setup_config.sh
 	/usr/local/bin/vscode_extensions.sh
 	
 test: shellcheck
