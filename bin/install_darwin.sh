@@ -2,7 +2,6 @@
 
 # Macbook download and install packages
 
-
 install_all() {
         # Added only known working functions here
         set_basedirs
@@ -119,35 +118,23 @@ install_packer() {
 }
 
 set_basedirs() {
-        mkdir ~/Git
-        mkdir ~/go
-        mkdir ~/Playground
-        mkdir ~/Workplace
+        mkdir ~/Git/{private,work,test}
 }
 
 set_golangdirs() {
         if [[ ! -d ~/Playground/golang ]]; then
                 echo "Setting general golang Playground directory"
-                mkdir ~/Playground/golang
-                mkdir ~/Playground/golang/src
-                mkdir ~/Playground/golang/bin
-                mkdir ~/Playground/golang/pkg
+                mkdir -p ~/Playground/golang/{src,bin,pkg}
         fi
 
         if [[ ! -d ~/Workplace/golang ]]; then
                 echo "Setting general golang Workplace directory"
-                mkdir ~/Workplace/golang
-                mkdir ~/Workplace/golang/src
-                mkdir ~/Workplace/golang/bin
-                mkdir ~/Workplace/golang/pkg
+                mkdir -p ~/Workplace/golang/{src,bin,pkg}
         fi
 
         if [[ ! -d ~/go/ ]]; then
                 echo "Setting gopath directory up, this is the default GOPATH"
-                mkdir ~/go
-                mkdir -p ~/go/src
-                mkdir -p ~/go/bin
-                mkdir -p ~/go/pkg
+                mkdir -p ~/go/{src,bin,pkg}
         fi
 }
 
@@ -165,16 +152,16 @@ install_golang() {
         GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
         export GO_SRC=/usr/local/go
 	GO_VERSION=${GO_VERSION#go}
+	echo -e "Installing ${GO_VERSION}"
 
         # You can pass version
-	if [[ ! -z "$1" ]]; then
-		export GO_VERSION=$1
+	if [[ -n "$1" ]]; then
+		export GO_VERSION=$2
 	fi
 
 	# Purge old GO_SRC
 	if [[ -d "$GO_SRC" ]]; then
 		sudo rm -rf "$GO_SRC"
-	        sudo rm -rf "$GOPATH"
 	fi
 
 	# Subshell install go
@@ -384,6 +371,11 @@ install_iterm2() {
 	brew install homebrew/cask/iterm2
 }
 
+install_chezmoi() {
+	check_brew
+	brew install twpayne/taps/chezmoi
+}
+
 install_shelltools() {
         install_shellcheck
         install_exa
@@ -476,6 +468,7 @@ main() {
 		install_iterm2
 		install_fzf
 		install_coreutils
+		install_chezmoi
 	elif [[ $cmd == "security" ]]; then
 		install_keepassyc
 	else
