@@ -14,7 +14,7 @@ unset file
 
 # This is to enable Azure cli interactive without UTF-8 errors more info in azure-cli issues 4536
 export LC_CTYPE=en
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages
+#export PYTHONPATH=/usr/local/lib/python2.7/site-packages
 export GOOS="darwin"
 export GOARCH="amd64"
 VAULT_PASSWORD="$(cat ~/.employer_files/.ansible_vault.txt)"
