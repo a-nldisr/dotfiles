@@ -17,8 +17,13 @@ export LC_CTYPE=en
 #export PYTHONPATH=/usr/local/lib/python2.7/site-packages
 export GOOS="darwin"
 export GOARCH="amd64"
+# This is set for packer builds
 VAULT_PASSWORD="$(cat ~/.employer_files/.ansible_vault.txt)"
 export VAULT_PASSWORD
+# Setting editor
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
 export PATH=$HOME/Library/Python/3.7/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/rogierdikkes/Library/Python/3.6/bin:/usr/local/go/bin:/Users/rogierdikkes/go/bin:/usr/share/bcc/tools:/sbin
 
 alias privategit="cd ~/Git/private/"
