@@ -179,7 +179,10 @@ install_golang() {
 	(
 	set -x
 	set +e
+        echo "Installing golang linter"
 	go get github.com/golang/lint/golint
+        echo "Installing golang language server"
+        go get golang.org/x/tools/cmd/gopls
 	go get golang.org/x/tools/cmd/cover
 	go get golang.org/x/review/git-codereview
 	go get golang.org/x/tools/cmd/goimports
