@@ -14,3 +14,6 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 HISTFILESIZE=10000000
 HISTSIZE=10000000
 
+shopt -s histappend
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+HISTTIMEFORMAT="%d/%m/%y %T "
