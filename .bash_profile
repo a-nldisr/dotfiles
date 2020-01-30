@@ -18,8 +18,8 @@ if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 
 # Enables Bash completion
 if [ -f "$(brew --prefix)"/etc/bash_completion ]; then
-  # shellcheck source=/usr/local
+  # shellcheck source=/dev/null
   . "$(brew --prefix)/etc/bash_completion"
 fi
-# shellcheck source=/Users/rogierdikkes
+# shellcheck source=/dev/null
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
