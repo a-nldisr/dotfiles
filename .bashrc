@@ -50,7 +50,7 @@ eval "$(thefuck --alias)"
 welcome() {
   uptime
   df -l -H | head -n2
-
+  # shellcheck disable=SC1117
   echo -e "The IP is: \033[91;7m$LOCAL_IP \033[0m, directory: \033[91;7m$PWD \033[0m"
 }
 
