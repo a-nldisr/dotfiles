@@ -4,6 +4,9 @@
 # shellcheck source=/dev/null
 source ~/.checks
 
+# Silence OSX zsh message:
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 for file in ~/.{path,dockerrc_${platform:?},employer}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
 		# shellcheck source=/dev/null
@@ -51,7 +54,7 @@ welcome() {
   uptime
   df -l -H | head -n2
   # shellcheck disable=SC1117
-  echo -e "The IP is: \033[91;7m$LOCAL_IP \033[0m, directory: \033[91;7m$PWD \033[0m"
+  echo -e "The IP is: \033[91;7m$LOCAL_IP\033[0m, directory: \033[91;7m$PWD\033[0m"
 }
 
-welcome
+welcomeåå
