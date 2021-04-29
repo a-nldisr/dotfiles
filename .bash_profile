@@ -23,3 +23,7 @@ if [ -f "$(brew --prefix)"/etc/bash_completion ]; then
 fi
 # shellcheck source=/dev/null
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
