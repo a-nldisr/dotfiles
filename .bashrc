@@ -7,6 +7,7 @@ source ~/.checks
 # Silence OSX zsh message:
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# Source the files generated
 for file in ~/.{path,dockerrc_${platform:?},employer}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
 		# shellcheck source=/dev/null
@@ -57,4 +58,7 @@ welcome() {
   echo -e "The IP is: \033[91;7m$LOCAL_IP\033[0m, directory: \033[91;7m$PWD\033[0m"
 }
 
-welcomeåå
+welcome
+
+source <(kubectl completion bash)
+source ~/.bash_aliases
