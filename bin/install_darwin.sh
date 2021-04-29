@@ -389,8 +389,11 @@ install_shelltools() {
 	install_coreutils
 }
 
-# Setup for a python developer environment
+setup_kubectl() {
+        kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
+}
 
+# Setup for a python developer environment
 setup_python() {
         check_brew
         # Subshell
