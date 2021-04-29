@@ -61,4 +61,5 @@ welcome() {
 welcome
 
 source <(kubectl completion bash)
+
 source ~/.bash_aliases
