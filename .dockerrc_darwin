@@ -230,20 +230,3 @@ arping(){
 #                ansible "$@"
 #
 #}
-
-# Aurora with the Developer Vagrant setup only works if you apply this patch: https://reviews.apache.org/r/63871/
-export AURORA_VERSION=0.18.0
-
-aurora(){
-	docker run -it --rm \
-		--log-driver none \
-		--name aurora-tools \
-		${DOCKER_REPO_USER}/aurora-tools:${AURORA_VERSION}.rpm aurora "$@"
-          }
-
-aurora_admin(){
-	docker run -it --rm \
-		--log-driver none \
-		--name aurora-tools \
-		${DOCKER_REPO_USER}/aurora-tools:${AURORA_VERSION}.rpm aurora_admin "$@"
-          }
