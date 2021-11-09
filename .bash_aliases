@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Bash Aliases
 
 alias pull="git pull"
