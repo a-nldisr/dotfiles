@@ -4,7 +4,10 @@
 
 register_os(){
 local unamestr
+# Retrieve platform
 unamestr=$(uname)
+# Retrieve processor type
+unameproc=$(uname -p)
 
 if [[ -z "$unamestr" ]]; then
     platform='unset'
@@ -14,11 +17,16 @@ elif [[ "$unamestr" == 'Linux' ]]; then
 elif [[ "$unamestr" == 'FreeBSD' ]]; then
    platform='freebsd'
 elif [[ "$unamestr" == 'Darwin' ]]; then
-   platform='darwin'
+   if [[ "$unameproc" == 'i386' ]]; then
+      platform='darwin'
+      PROCESSOR='i386'
+      export PROCESSOR
+   elif [[ "$unameproc" == 'arm' ]]; then
+      platform='darwin'
+      PROCESSOR='arm'
+      export PROCESSOR
+   fi
 fi
-
-
 }
 
 register_os
-

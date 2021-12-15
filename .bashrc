@@ -21,12 +21,25 @@ export LC_CTYPE=en
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8  
 
-#export PYTHONPATH=/usr/local/lib/python2.7/site-packages
-export GOOS="darwin"
-export GOARCH="amd64"
+if [[ "$platform" == 'darwin' ]]; then
+  if [[ "$PROCESSOR" == 'i386' ]]; then
+    export GOOS="darwin"
+    export GOARCH="amd64"
+  elif [[ "$PROCESSOR" == 'arm' ]]; then
+    export GOOS="darwin"
+    export GOARCH="amd64"
+  fi
+elif [[ "$platform" == 'linux' ]]; then
+  export GOOS="linux"
+  export GOARCH="amd64"
+fi
+
 # This is set for packer builds
-VAULT_PASSWORD="$(cat ~/.employer_files/.ansible_vault.txt)"
-export VAULT_PASSWORD
+if [[ -f ~/.employer_files/.ansible_vault.txt ]]; then
+  export VAULT_PASSWORD=~/.employer_files/.ansible_vault.txt
+  else
+  logger "No ansible vault password found"
+fi
 # Setting editor
 export VISUAL=nvim
 export EDITOR="$VISUAL"
