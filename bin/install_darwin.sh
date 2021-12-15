@@ -325,6 +325,11 @@ install_shelltools() {
 	install_coreutils
 }
 
+install_kubectl() {
+        check_brew
+        brew install kubernetes-cli
+}
+
 setup_kubectl() {
         kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
 }
@@ -397,6 +402,9 @@ main() {
                 install_packer
         elif [[ $cmd == "azure" ]]; then
                 install_azurecli
+        elif [[ $cmd == "kubernetes" ]]; then
+                install_kubectl
+                setup_kubectl
         elif [[ $cmd == "dcoscli" ]]; then
                 install_dcoscli
 	elif [[ $cmd == "shelltools" ]]; then
