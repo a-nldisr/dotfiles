@@ -21,8 +21,6 @@ install_all() {
 	install_sublime
 	install_neovim
 	install_pathogen
-        install_virtualbox
-        install_vagrant
         install_docker
         install_terraform
         install_azurecli
@@ -33,7 +31,8 @@ install_all() {
 
 # This installs brew, i tried so hard to put everything in containers but on mac its gimped
 install_brew() {
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    	eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
 install_vscode() {
@@ -45,7 +44,7 @@ install_vscode() {
         echo "Placing vscode in Applications folder"
         sudo unzip ~/Downloads/vscode.zip -d /Applications/
         # Place the code command to open files with
-        ln -s /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code /usr/local/bin/code
+        sudo ln -s /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code /usr/local/bin/code
 }
 
 install_sublime() {
@@ -192,60 +191,6 @@ install_golang() {
         )
 }
 
-install_vagrant() {
-        check_virtualbox
-	export VAGRANT_VER=2.0.0
-        # Subshell install Vagrant
-        (
-        curl --silent "https://releases.hashicorp.com/vagrant/${VAGRANT_VER}/vagrant_${VAGRANT_VER}_x86_64.dmg" -o ~/Downloads/vagrant_${VAGRANT_VER}_x86_64.dmg
-        hdiutil attach ~/Downloads/vagrant_${VAGRANT_VER}_x86_64.dmg
-        sudo /usr/sbin/installer -pkg /Volumes/Vagrant/vagrant.pkg -target / -verboseR -allowUntrusted
-        hdiutil detach /Volumes/Vagrant/
-        # Its possible that Mac OSX blocks virtual box. You then need to remove the warning from Settings > Privacy & security and allow Oracle in the general tab.
-        )
-}
-
-install_virtualbox() {
-        # Installation of virtualbox and extension pack
-        export VIRTUALBOX_VER=5.1.26
-        # Since 1 version number wasn't enough
-        export VIRTUALBOX_VER2=117224 
-        # Subshell install virtualbox
-        (
-        curl --silent "http://download.virtualbox.org/virtualbox/${VIRTUALBOX_VER}/VirtualBox-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}-OSX.dmg" -o ~/Downloads/VirtualBox-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}-OSX.dmg
-        hdiutil attach ~/Downloads/VirtualBox-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}-OSX.dmg
-        sudo /usr/sbin/installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target / -verboseR
-        hdiutil detach /Volumes/VirtualBox/
-        )
-
-        # Installation of virtualbox extension pack
-        (
-        curl --silent "http://download.virtualbox.org/virtualbox/${VIRTUALBOX_VER}/Oracle_VM_VirtualBox_Extension_Pack-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}.vbox-extpack" -o ~/Downloads/Oracle_VM_VirtualBox_Extension_Pack-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}.vbox-extpack
-        VBoxManage extpack install --replace ~/Downloads/Oracle_VM_VirtualBox_Extension_Pack-${VIRTUALBOX_VER}-${VIRTUALBOX_VER2}.vbox-extpack
-        )
-}
-
-install_docker() {
-        # Subshell install Docker
-        echo "Installing Docker"
-        (
-        curl --silent "https://download.docker.com/mac/stable/Docker.dmg" -o ~/Downloads/Docker.dmg
-        hdiutil attach ~/Downloads/Docker.dmg
-        sudo cp -Rf /Volumes/Docker/Docker.app /Applications
-        hdiutil detach /Volumes/Docker
-        )
-        echo "Installation done, you need to start Docker to do post-intall setup"
-}
-
-install_dcoscli() {
-        export DCOSCLI_VER=1.8
-        # Subshell install dcoscli
-        (
-        curl --silent "https://downloads.dcos.io/binaries/cli/darwin/x86-64/dcos-${DCOSCLI_VER}/dcos" -o /usr/local/bin/dcos
-        chmod +x /usr/local/bin/dcos
-        )
-}
-
 # Brew Section, introduced this since docker really messed up network, sound, passing through arguments. One day Docker will be made great again
 # All brew installs have a check_brew call to ensure this doesnt fail somewhere
 
@@ -253,17 +198,8 @@ check_brew() {
         if command -v brew &>/dev/null; then
             echo "Checking requirements: Brew... ok"
         else 
-            echo "Installing requirements..."
+            echo "Installing requirements: Brew..."
             install_brew           
-        fi
-}
-
-check_virtualbox() {
-        if command -v VirtualBox &>/dev/null; then
-            echo "Checking requirements: VirtualBox... ok"
-        else 
-            echo "Installing requirements..."
-            install_virtualbox           
         fi
 }
 
@@ -452,12 +388,9 @@ main() {
 	elif [[ $cmd == "vim" ]]; then
 		install_neovim
 		install_pathogen
-	elif [[ $cmd == "vm" ]]; then
-                install_virtualbox
-	elif [[ $cmd == "vagrant" ]]; then
-                install_vagrant
 	elif [[ $cmd == "docker" ]]; then
-                install_docker
+                echo "Installing Docker, todo"
+		# install_docker
         elif [[ $cmd == "terraform" ]]; then
                 install_terraform
         elif [[ $cmd == "packer" ]]; then

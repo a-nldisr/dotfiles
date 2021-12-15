@@ -3,6 +3,7 @@
 all: bin dotfiles install
 
 bin:
+	sudo mkdir -p /usr/local/bin
 	# add aliases to all in bin
 	for file in $(shell find $(CURDIR)/bin -type f -not -name "*-backlight" -not -name ".*.swp"); do \
 		f=$$(basename $$file); \
@@ -18,9 +19,9 @@ dotfiles:
 
 install:
 	sudo ./bin/root_setup.sh
-	/usr/local/bin/install_darwin.sh all
-	/usr/local/bin/setup_config.sh
-	/usr/local/bin/vscode_extensions.sh
+	bash /usr/local/bin/install_darwin.sh all
+	bash /usr/local/bin/setup_config.sh
+	bash /usr/local/bin/vscode_extensions.sh
 	
 test: shellcheck
 

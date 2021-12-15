@@ -59,10 +59,6 @@ install_ext_jinjahtml() {
     code --install-extension samuelcolvin.jinjahtml
 }
 
-install_ext_ansiblecode() {
-    code --install-extension vscoss.vscode-ansible
-}
-
 install_ext_reactnative() {
     code --install-extension vsmobile.vscode-react-native
 }
@@ -99,10 +95,6 @@ install_ext_gitprojectmgr() {
     code --install-extension felipecaputo.git-project-manager
 }
 
-install_ext_ansible() {
-    code --install-extension haaaad.ansible
-}
-
 install_ext_autocompletepath() {
     code --install-extension ionutvmi.path-autocomplete
 }
@@ -117,10 +109,6 @@ install_ext_gotheme() {
 
 install_ext_mspython() {
     code --install-extension ms-python.python
-}
-
-install_ext_vscodevim() {
-    code --install-extension vscodevim.vim
 }
 
 install_ext_shellcheck() {
@@ -138,7 +126,6 @@ main() {
     install_ext_githistory
     install_ext_gitlens
     install_ext_gitprojectmgr
-    install_ext_ansible
     install_ext_autocompletepath
     install_ext_go
     install_ext_gotheme
@@ -159,7 +146,6 @@ main() {
     install_ext_markdown_preview
     install_ext_jinjahtml
     install_ext_partialdiff
-    install_ext_ansiblecode
     install_ext_reactnative
     install_ext_jinja
     install_ext_hcl

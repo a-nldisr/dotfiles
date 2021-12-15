@@ -63,3 +63,4 @@ welcome
 source <(kubectl completion bash)
 
 source ~/.bash_aliases
+eval "$(/opt/homebrew/bin/brew shellenv)"
