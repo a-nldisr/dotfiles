@@ -40,6 +40,7 @@ if [[ -f ~/.employer_files/.ansible_vault.txt ]]; then
   else
   logger "No ansible vault password found"
 fi
+
 # Setting editor
 export VISUAL=nvim
 export EDITOR="$VISUAL"
@@ -47,6 +48,9 @@ LOCAL_IP="$(ipconfig getifaddr en0)"
 export LOCAL_IP
 
 export PATH=$HOME/Library/Python/3.7/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/rogierdikkes/Library/Python/3.6/bin:/usr/local/go/bin:/Users/rogierdikkes/go/bin:/usr/share/bcc/tools:/sbin:/usr/X11R6/bin/
+
+# Adding Brew to path
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 alias privategit="cd ~/Git/private/"
 alias gitdir="cd ~/Git"
@@ -76,4 +80,3 @@ welcome
 source <(kubectl completion bash)
 
 source ~/.bash_aliases
-eval "$(/opt/homebrew/bin/brew shellenv)"
