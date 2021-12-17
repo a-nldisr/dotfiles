@@ -51,6 +51,7 @@ export PATH=$HOME/Library/Python/3.7/bin:/usr/local/bin:/usr/local/go/bin:/usr/l
 
 # Adding Brew to path
 eval "$(/opt/homebrew/bin/brew shellenv)"
+source <(kubectl completion bash)
 
 alias privategit="cd ~/Git/private/"
 alias gitdir="cd ~/Git"
@@ -76,7 +77,4 @@ welcome() {
 }
 
 welcome
-
-source <(kubectl completion bash)
-
 source ~/.bash_aliases
