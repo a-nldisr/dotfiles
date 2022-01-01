@@ -17,9 +17,12 @@ done
 unset file
 
 # This is to enable Azure cli interactive without UTF-8 errors more info in azure-cli issues 4536
-export LC_CTYPE=en
+if [[ $(echo "$BASH_VERSION" | cut -d. -f1) -lt 4 ]]; then
+  export LC_CTYPE=en
+fi
+
+export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8  
 
 if [[ "$platform" == 'darwin' ]]; then
   if [[ "$PROCESSOR" == 'i386' ]]; then
