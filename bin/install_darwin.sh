@@ -103,7 +103,8 @@ install_packer() {
 }
 
 set_basedirs() {
-        mkdir ~/Git/{private,work,test}
+        mkdir ~/Git/{private,work,test,0to1}
+        mkdir ~/Documents/{work,test,0to1}
 }
 
 set_golangdirs() {
