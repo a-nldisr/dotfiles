@@ -47,7 +47,7 @@ export EDITOR="$VISUAL"
 LOCAL_IP="$(ipconfig getifaddr en0)"
 export LOCAL_IP
 
-export PATH=$HOME/Library/Python/3.7/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/rogierdikkes/Library/Python/3.6/bin:/usr/local/go/bin:/Users/rogierdikkes/go/bin:/usr/share/bcc/tools:/sbin:/usr/X11R6/bin/
+export PATH=$PATH:$HOME/Library/Python/3.7/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/rogierdikkes/Library/Python/3.6/bin:/usr/local/go/bin:/Users/rogierdikkes/go/bin:/usr/share/bcc/tools:/sbin:/usr/X11R6/bin/
 
 # Adding Brew to path
 eval "$(/opt/homebrew/bin/brew shellenv)"
