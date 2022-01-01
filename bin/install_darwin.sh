@@ -12,9 +12,7 @@ install_all() {
                 install_ansible
                 install_shelltools
         )
-	install_chrome
-	install_firefox
-	install_brave
+	install_browsers
 	set_golangdirs
 	install_golang	
 	install_vscode
@@ -27,6 +25,7 @@ install_all() {
         install_keepassyc
         install_dcoscli
         install_packer
+        install_kubernetes
 }
 
 # This installs brew, i tried so hard to put everything in containers but on mac its gimped
@@ -315,6 +314,17 @@ install_chezmoi() {
 	brew install twpayne/taps/chezmoi
 }
 
+install_kubectl() {
+        check_brew
+        brew install kubernetes-cli
+}
+
+setup_kubectl() {
+        kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
+}
+
+# Functions that are to organize functions into categories.
+
 install_shelltools() {
         install_shellcheck
         install_exa
@@ -323,15 +333,19 @@ install_shelltools() {
 	install_iterm2
 	install_fzf
 	install_coreutils
+	install_chezmoi
+        install_bashcompletion
 }
 
-install_kubectl() {
-        check_brew
-        brew install kubernetes-cli
+install_kubernetes() {
+        install_kubectl
+        setup_kubectl
 }
 
-setup_kubectl() {
-        kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
+install_browsers() {
+        install_firefox
+        install_chrome
+        install_brave
 }
 
 # Setup for a python developer environment
@@ -381,9 +395,7 @@ main() {
 	elif [[ $cmd == "ansible" ]]; then
 		install_ansible
 	elif [[ $cmd == "browser" ]]; then
-		install_chrome
-		install_firefox
-		install_brave
+		install_browsers
         elif [[ $cmd == "golang" ]]; then
 		set_golangdirs
 		install_golang
@@ -403,19 +415,9 @@ main() {
         elif [[ $cmd == "azure" ]]; then
                 install_azurecli
         elif [[ $cmd == "kubernetes" ]]; then
-                install_kubectl
-                setup_kubectl
-        elif [[ $cmd == "dcoscli" ]]; then
-                install_dcoscli
+                install_kubernetes
 	elif [[ $cmd == "shelltools" ]]; then
-                install_shellcheck
-                install_exa
-                set_locate
-                set_updatedb
-		install_iterm2
-		install_fzf
-		install_coreutils
-		install_chezmoi
+                install_shelltools
 	elif [[ $cmd == "security" ]]; then
 		install_keepassyc
 	else
