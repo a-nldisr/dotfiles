@@ -262,7 +262,7 @@ install_ansible() {
 }
 
 install_bashcompletion() {
-	brew install bash-completion
+	brew install bash-completion@2
 }
 
 set_updatedb() {
@@ -321,6 +321,7 @@ install_kubectl() {
 
 setup_kubectl() {
         kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
+        mkdir -p ~/.kube
 }
 
 # Functions that are to organize functions into categories.
