@@ -9,7 +9,6 @@ install_all() {
 	install_python3
         # Subshell
         (
-                install_ansible
                 install_shelltools
         )
 	install_browsers
