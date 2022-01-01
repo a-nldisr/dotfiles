@@ -20,7 +20,7 @@ install_all() {
 	install_neovim
 	install_pathogen
         install_docker
-        install_terraform
+        install_automation
         install_azurecli
         install_keepassyc
         install_dcoscli
@@ -261,6 +261,11 @@ install_ansible() {
         brew install ansible
 }
 
+install_pulumi() {
+        check_brew
+        brew install pulumi
+}
+
 install_bashcompletion() {
 	brew install bash-completion@2
 }
@@ -347,6 +352,12 @@ install_browsers() {
         install_firefox
         install_chrome
         install_brave
+}
+
+install_automation() {
+        install_ansible
+        install_terraform
+        install_pulumi
 }
 
 # Setup for a python developer environment
