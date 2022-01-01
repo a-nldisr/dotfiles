@@ -61,10 +61,6 @@ install_keepassyc() {
         brew install --cask keepassxc
 }
 
-install_viscosity() {
-        echo "TODO, before i forget"
-}
-
 install_brave() {
         echo "Downloading Brave browser"
         curl --silent -L https://laptop-updates.brave.com/latest/osx -o ~/Downloads/brave.dmg
