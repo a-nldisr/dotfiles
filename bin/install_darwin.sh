@@ -58,15 +58,7 @@ install_sublime() {
 }
 
 install_keepassyc() {
-        echo "Downloading KeepassXC"
-        export KEEPASSXC_VER=2.2.2
-        curl --silent -L https://github.com/keepassxreboot/keepassxc/releases/download/${KEEPASSXC_VER}/KeePassXC-${KEEPASSXC_VER}.dmg -o ~/Downloads/keepass.dmg
-        echo "Download complete, installing sublime"
-        hdiutil attach ~/Downloads/keepass.dmg
-        sudo cp -Rf /Volumes/KeePassXC/KeePassXC.app /Applications
-        echo "Detaching volume"
-        hdiutil detach /Volumes/KeepassXC/
-        echo "Installation complete"
+        brew install --cask keepassxc
 }
 
 install_viscosity() {
