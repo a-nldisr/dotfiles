@@ -26,3 +26,8 @@ if [ -f "$(brew --prefix)"/etc/bash_completion ]; then
 fi
 # shellcheck source=/dev/null
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+if [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]; then
+  # shellcheck source=/dev/null
+  . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+fi
