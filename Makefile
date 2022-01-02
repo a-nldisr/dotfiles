@@ -1,9 +1,8 @@
 .PHONY: all bin dotfiles install test shellcheck
 
-all: bin dotfiles install
+all: setup bin dotfiles install
 
 bin:
-	sudo mkdir -p /usr/local/bin
 	# add aliases to all in bin
 	for file in $(shell find $(CURDIR)/bin -type f -not -name "*-backlight" -not -name ".*.swp"); do \
 		f=$$(basename $$file); \
@@ -16,6 +15,10 @@ dotfiles:
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
+
+setup:
+	sudo mkdir -p /usr/local/bin
+	sudo chown -R $(USER) /usr/local/bin
 
 install:
 	sudo ./bin/root_setup.sh
