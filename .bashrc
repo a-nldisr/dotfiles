@@ -8,7 +8,7 @@ source ~/.checks
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Source the files generated
-for file in ~/.{path,dockerrc_${platform:?},employer}; do
+for file in ~/.{path,dockerrc_${PLATFORM:?},employer}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
 		# shellcheck source=/dev/null
 		source "$file"
@@ -24,7 +24,7 @@ fi
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-if [[ "$platform" == 'darwin' ]]; then
+if [[ "$PLATFORM" == 'darwin' ]]; then
   if [[ "$PROCESSOR" == 'i386' ]]; then
     export GOOS="darwin"
     export GOARCH="amd64"
@@ -32,7 +32,7 @@ if [[ "$platform" == 'darwin' ]]; then
     export GOOS="darwin"
     export GOARCH="amd64"
   fi
-elif [[ "$platform" == 'linux' ]]; then
+elif [[ "$PLATFORM" == 'linux' ]]; then
   export GOOS="linux"
   export GOARCH="amd64"
 fi

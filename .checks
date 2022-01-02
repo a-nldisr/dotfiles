@@ -1,28 +1,28 @@
 #!/bin/bash
 
-# This checks the platform and then registers the platform in a variable
+# This checks the PLATFORM and then registers the PLATFORM in a variable
 
 register_os(){
 local unamestr
-# Retrieve platform
+# Retrieve PLATFORM
 unamestr=$(uname)
 # Retrieve processor type
 unameproc=$(uname -p)
 
 if [[ -z "$unamestr" ]]; then
-    platform='unset'
-    echo "${platform} platform"
+    PLATFORM='unset'
+    echo "${PLATFORM} PLATFORM"
 elif [[ "$unamestr" == 'Linux' ]]; then
-   platform='linux'
+   PLATFORM='linux'
 elif [[ "$unamestr" == 'FreeBSD' ]]; then
-   platform='freebsd'
+   PLATFORM='freebsd'
 elif [[ "$unamestr" == 'Darwin' ]]; then
    if [[ "$unameproc" == 'i386' ]]; then
-      platform='darwin'
+      PLATFORM='darwin'
       PROCESSOR='i386'
       export PROCESSOR
    elif [[ "$unameproc" == 'arm' ]]; then
-      platform='darwin'
+      PLATFORM='darwin'
       PROCESSOR='arm'
       export PROCESSOR
    fi
