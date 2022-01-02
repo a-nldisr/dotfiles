@@ -17,13 +17,15 @@ elif [[ "$unamestr" == 'Linux' ]]; then
 elif [[ "$unamestr" == 'FreeBSD' ]]; then
    PLATFORM='freebsd'
 elif [[ "$unamestr" == 'Darwin' ]]; then
-   if [[ "$unameproc" == 'i386' ]]; then
+   if [[ "$unameproc" == 'arm' ]]; then
       PLATFORM='darwin'
-      PROCESSOR='i386'
+      export PLATFORM
+      PROCESSOR='arm64'
       export PROCESSOR
-   elif [[ "$unameproc" == 'arm' ]]; then
+   elif [[ "$unameproc" == 'x86_64' ]]; then
       PLATFORM='darwin'
-      PROCESSOR='arm'
+      export PLATFORM
+      PROCESSOR='amd64'
       export PROCESSOR
    fi
 fi
