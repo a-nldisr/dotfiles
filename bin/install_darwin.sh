@@ -135,6 +135,7 @@ check_golang() {
 
 install_golang() {
 	export GO_VERSION
+        # Get the latest version
         GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
         export GO_SRC=/usr/local/go
 	GO_VERSION=${GO_VERSION#go}
@@ -153,8 +154,10 @@ install_golang() {
 	# Subshell install go
 	(
         # Darwin installer requires a path
-	curl --silent https://storage.googleapis.com/golang/go"${GO_VERSION}".darwin-amd64.pkg -o ~/Downloads/go"${GO_VERSION}".darwin-amd64.pkg 
-        sudo /usr/sbin/installer -pkg ~/Downloads/go"${GO_VERSION}".darwin-amd64.pkg -target / -verboseR
+	curl --silent https://dl.google.com/go/go"${GO_VERSION}"."${PLATFORM}"-"${PROCESSOR}".pkg -o ~/Downloads/go"${GO_VERSION}"."${PLATFORM}"-"${PROCESSOR}".pkg 
+        echo -e installing  ~/Downloads/go"${GO_VERSION}"."${PLATFORM}"-"${PROCESSOR}".pkg
+        sudo /usr/sbin/installer -pkg ~/Downloads/go"${GO_VERSION}"."${PLATFORM}"-"${PROCESSOR}".pkg -target / -verboseR
+
 	local user="$USER"
 	# rebuild stdlib for faster builds
 	sudo chown -R "${user}" /usr/local/go/pkg
@@ -166,15 +169,15 @@ install_golang() {
 	set -x
 	set +e
         echo "Installing golang linter"
-	go get github.com/golang/lint/golint
+	go install github.com/golang/lint/golint@latest
         echo "Installing golang language server"
-        go get golang.org/x/tools/cmd/gopls
-	go get golang.org/x/tools/cmd/cover
-	go get golang.org/x/review/git-codereview
-	go get golang.org/x/tools/cmd/goimports
-	go get golang.org/x/tools/cmd/gorename
-	go get golang.org/x/tools/cmd/guru
-        go get github.com/derekparker/delve/cmd/dlv
+        go install golang.org/x/tools/cmd/gopls@latest
+	go install golang.org/x/tools/cmd/cover@latest
+	go install golang.org/x/review/git-codereview@latest
+	go install golang.org/x/tools/cmd/goimports@latest
+	go install golang.org/x/tools/cmd/gorename@latest
+	go install golang.org/x/tools/cmd/guru@latest
+        go install github.com/derekparker/delve/cmd/dlv@latest
         )
 }
 
@@ -360,6 +363,12 @@ setup_python() {
         )
 }
 
+setup_requirements(){
+        # We source the checks so we can use $PROCESSOR etc.
+        #shellcheck disable=SC1090
+        source ~/.checks
+}
+
 usage() {
 	echo -e "This script installs my basic setup for a Macbook\\n"
 	echo "Usage:"
@@ -380,6 +389,7 @@ usage() {
 }
 
 main() {
+        setup_requirements
 	local cmd=$1
 
 	if [[ -z "$cmd" ]]; then
