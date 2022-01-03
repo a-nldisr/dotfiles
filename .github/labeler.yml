@@ -2,6 +2,6 @@
 repo:
 - '*'
 
-# Add '@bin/bash' label to any change within the 'bin' directory
+# Add '@bin/bash' label to any change within the 'bin' files
 @bin/bash:
-- bin/*.sh
+- any: ['bin/*.sh']
