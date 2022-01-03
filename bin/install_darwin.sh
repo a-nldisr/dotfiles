@@ -19,7 +19,6 @@ install_all() {
 	install_sublime
 	install_neovim
 	install_pathogen
-        install_docker
         install_automation
         install_azurecli
         install_keepassyc
@@ -424,9 +423,6 @@ main() {
 	elif [[ $cmd == "vim" ]]; then
 		install_neovim
 		install_pathogen
-	elif [[ $cmd == "docker" ]]; then
-                echo "Installing Docker, todo"
-		# install_docker
         elif [[ $cmd == "terraform" ]]; then
                 install_terraform
         elif [[ $cmd == "packer" ]]; then
