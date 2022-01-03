@@ -3,6 +3,7 @@
 # Macbook download and install packages
 
 install_all() {
+        setup_requirements
         # Added only known working functions here
         set_basedirs
 	install_brew
@@ -22,7 +23,6 @@ install_all() {
         install_automation
         install_azurecli
         install_keepassyc
-        install_dcoscli
         install_packer
         install_kubernetes
 }
@@ -310,6 +310,12 @@ install_chezmoi() {
 	brew install twpayne/taps/chezmoi
 }
 
+install_minikube() {
+        echo -e "Installing Minikube"
+        curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-arm64 -o ~/Downloads/minikube-darwin-arm64
+        sudo install ~/Downloads/minikube-darwin-arm64 /usr/local/bin/minikube
+}
+
 install_kubectl() {
         check_brew
         brew install kubernetes-cli
@@ -335,8 +341,11 @@ install_shelltools() {
 }
 
 install_kubernetes() {
+        install_minikube
+
         install_kubectl
         setup_kubectl
+
 }
 
 install_browsers() {
