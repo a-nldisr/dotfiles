@@ -1,0 +1,7 @@
+# Add 'repo' label to any root file changes
+repo:
+- '*'
+
+# Add '@bin/bash' label to any change within the 'bin' files
+bin/bash:
+- any: ['bin/*.sh']
