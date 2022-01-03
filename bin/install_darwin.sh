@@ -311,7 +311,7 @@ install_chezmoi() {
 
 install_minikube() {
         echo -e "Installing Minikube"
-        curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-arm64 -o ~/Downloads/minikube-darwin-arm64
+        curl --silent -L https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-arm64 -o ~/Downloads/minikube-darwin-arm64
         sudo install ~/Downloads/minikube-darwin-arm64 /usr/local/bin/minikube
 }
 
