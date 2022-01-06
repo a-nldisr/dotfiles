@@ -11,19 +11,20 @@ install_all() {
         # Subshell
         (
                 install_shelltools
+                install_devtools
         )
 	install_browsers
 	set_golangdirs
 	install_golang	
 	install_vscode
 	install_sublime
-	install_neovim
 	install_pathogen
         install_automation
         install_azurecli
         install_keepassyc
         install_packer
         install_kubernetes
+        message_finish
 }
 
 # This installs brew, i tried so hard to put everything in containers but on mac its gimped
@@ -133,12 +134,14 @@ check_golang() {
 }
 
 install_golang() {
+        setup_requirements
 	export GO_VERSION
         # Get the latest version
         GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
         export GO_SRC=/usr/local/go
 	GO_VERSION=${GO_VERSION#go}
 	echo -e "Installing ${GO_VERSION}"
+        echo -e "For ${PLATFORM} and ${PROCESSOR}"
 
         # You can pass version
 	if [[ -n "$1" ]]; then
@@ -325,10 +328,21 @@ setup_kubectl() {
         mkdir -p ~/.kube
 }
 
+install_postman() {
+        check_brew
+        brew install --cask postman
+}
+
+message_finish() {
+        echo "Installation finished."
+        echo "Please install xcode manually via the Appstore."
+}
+
 # Functions that are to organize functions into categories.
 
 install_shelltools() {
         install_shellcheck
+        install_neovim
         install_exa
         set_locate
         set_updatedb
@@ -341,7 +355,6 @@ install_shelltools() {
 
 install_kubernetes() {
         install_minikube
-
         install_kubectl
         setup_kubectl
 
@@ -357,6 +370,11 @@ install_automation() {
         install_ansible
         install_terraform
         install_pulumi
+}
+
+install_devtools() {
+        install_neovim
+        install_postman
 }
 
 # Setup for a python developer environment
