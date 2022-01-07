@@ -217,6 +217,11 @@ install_fzf() {
 	brew install fzf
 }
 
+install_7zip() {
+        check_brew
+        brew install p7zip
+}
+
 install_ncdu() {
         check_brew
         brew install ncdu
@@ -351,13 +356,13 @@ install_shelltools() {
 	install_coreutils
 	install_chezmoi
         install_bashcompletion
+        install_7zip
 }
 
 install_kubernetes() {
         install_minikube
         install_kubectl
         setup_kubectl
-
 }
 
 install_browsers() {
