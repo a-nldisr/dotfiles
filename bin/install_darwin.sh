@@ -328,6 +328,11 @@ install_kubectl() {
         brew install kubernetes-cli
 }
 
+install_kubectx() {
+        check_brew
+        brew install kubectx
+}
+
 setup_kubectl() {
         kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
         mkdir -p ~/.kube
@@ -362,6 +367,7 @@ install_shelltools() {
 install_kubernetes() {
         install_minikube
         install_kubectl
+        install_kubectx
         setup_kubectl
 }
 
