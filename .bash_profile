@@ -31,3 +31,5 @@ if [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]; then
   # shellcheck source=/dev/null
   . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 fi
+# Tanka autoadded this
+complete -C /opt/homebrew/bin/tk tk
