@@ -18,7 +18,7 @@ etcd(){
 
     # Registry
     local IMAGE
-    IMAGE=gcr.io/etcd-development/etcd:v3.5.1-arm64
+    IMAGE="gcr.io/etcd-development/etcd:v3.5.1-arm64"
 
     docker run -d \
     -p ${PORT0}:${PORT0} \
@@ -37,7 +37,13 @@ etcd(){
 }
 
 nmap(){
+    local IMAGE
+    IMAGE=nmap
+    local TAG
+    TAG="arm64v8-debian-bullseye-slim"
+
+
 	docker run --rm -it \
 		--net host \
-		"${DOCKER_REPO_USER}"/nmap:arm64v8-debian-bullseye-slim "$@"
+		"${DOCKER_REPO_USER}"/"$IMAGE":"$TAG" "$@"
 }
