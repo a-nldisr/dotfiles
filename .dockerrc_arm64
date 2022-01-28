@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DOCKER_REPO_USER=anldisr
+
 etcd(){
     local NODE1
     NODE1=$LOCAL_IP
@@ -15,8 +17,8 @@ etcd(){
     API_VERSION=3
 
     # Registry
-    local REGISTRY
-    REGISTRY=gcr.io/etcd-development/etcd:v3.5.1-arm64
+    local IMAGE
+    IMAGE=gcr.io/etcd-development/etcd:v3.5.1-arm64
 
     docker run -d \
     -p ${PORT0}:${PORT0} \
@@ -24,7 +26,7 @@ etcd(){
     -e ETCD_ENABLE_V${API_VERSION}=true \
     -e ETCDCTL_API=${API_VERSION} \
     --name etcd \
-    "${REGISTRY}" \
+    "${IMAGE}" \
     /usr/local/bin/etcd \
     --name node0 \
     --initial-advertise-peer-urls http://${NODE1}:${PORT1} \
@@ -37,5 +39,5 @@ etcd(){
 nmap(){
 	docker run --rm -it \
 		--net host \
-		a-nldisr/nmap:arm64v8-debian-bullseye-slim "$@"
+		"${DOCKER_REPO_USER}"/nmap:arm64v8-debian-bullseye-slim "$@"
 }
