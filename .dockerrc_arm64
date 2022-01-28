@@ -1,0 +1,41 @@
+#!/bin/bash
+
+etcd(){
+    local NODE1
+    NODE1=$LOCAL_IP
+
+    # Ports
+    local PORT0
+    local PORT1
+    PORT0=2379
+    PORT1=2380
+
+    # API version
+    local API_VERSION
+    API_VERSION=3
+
+    # Registry
+    local REGISTRY
+    REGISTRY=gcr.io/etcd-development/etcd:v3.5.1-arm64
+
+    docker run -d \
+    -p ${PORT0}:${PORT0} \
+    -p ${PORT1}:${PORT1} \
+    -e ETCD_ENABLE_V${API_VERSION}=true \
+    -e ETCDCTL_API=${API_VERSION} \
+    --name etcd \
+    "${REGISTRY}" \
+    /usr/local/bin/etcd \
+    --name node0 \
+    --initial-advertise-peer-urls http://${NODE1}:${PORT1} \
+    --listen-peer-urls http://0.0.0.0:${PORT1} \
+    --advertise-client-urls http://${NODE1}:${PORT0} \
+    --listen-client-urls http://0.0.0.0:${PORT0} \
+    --initial-cluster node0=http://${NODE1}:${PORT1}
+}
+
+nmap(){
+	docker run --rm -it \
+		--net host \
+		a-nldisr/nmap:arm64v8-debian-bullseye-slim "$@"
+}
