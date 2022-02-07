@@ -1,9 +1,15 @@
 #!/bin/bash
-
 # Bash Aliases
+
+# Git
 alias pull="git pull"
 alias push="git push"
+
+# Kubernetes
 alias k="kubectl"
+
+# pip
+alias pip="pip3"
 
 EMPLOYER_ALIAS_FILE="$HOME/.employer_files/.bash_aliases"
 export EMPLOYER_ALIAS_FILE

@@ -15,7 +15,7 @@ install_all() {
         )
 	install_browsers
 	set_golangdirs
-	install_golang	
+	install_golang
 	install_vscode
 	install_sublime
 	install_pathogen
@@ -127,9 +127,9 @@ set_golangdirs() {
 check_golang() {
         if command -v go &>/dev/null; then
             echo "Checking requirements: Go... ok"
-        else 
+        else
             echo "Installing requirements..."
-            install_golang          
+            install_golang
         fi
 }
 
@@ -156,7 +156,7 @@ install_golang() {
 	# Subshell install go
 	(
         # Darwin installer requires a path
-	curl --silent https://dl.google.com/go/go"${GO_VERSION}"."${PLATFORM}"-"${PROCESSOR}".pkg -o ~/Downloads/go"${GO_VERSION}"."${PLATFORM}"-"${PROCESSOR}".pkg 
+	curl --silent https://dl.google.com/go/go"${GO_VERSION}"."${PLATFORM}"-"${PROCESSOR}".pkg -o ~/Downloads/go"${GO_VERSION}"."${PLATFORM}"-"${PROCESSOR}".pkg
         echo -e installing  ~/Downloads/go"${GO_VERSION}"."${PLATFORM}"-"${PROCESSOR}".pkg
         sudo /usr/sbin/installer -pkg ~/Downloads/go"${GO_VERSION}"."${PLATFORM}"-"${PROCESSOR}".pkg -target / -verboseR
 
@@ -189,9 +189,9 @@ install_golang() {
 check_brew() {
         if command -v brew &>/dev/null; then
             echo "Checking requirements: Brew... ok"
-        else 
+        else
             echo "Installing requirements: Brew..."
-            install_brew           
+            install_brew
         fi
 }
 
