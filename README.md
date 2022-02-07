@@ -9,7 +9,7 @@ Without me, my dotfiles are useless. Without my dotfiles, I am useless. I must f
 ## How to use
 
 ```bash
-    make
+make
 ```
 
 ## What Macbook type?
