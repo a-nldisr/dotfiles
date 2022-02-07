@@ -25,15 +25,30 @@ etcd(){
     -p ${PORT1}:${PORT1} \
     -e ETCD_ENABLE_V${API_VERSION}=true \
     -e ETCDCTL_API=${API_VERSION} \
+    -v /tmp/etcd-data.tmp,destination=/etcd-data \
     --name etcd \
     "${IMAGE}" \
     /usr/local/bin/etcd \
     --name node0 \
-    --initial-advertise-peer-urls http://${NODE1}:${PORT1} \
-    --listen-peer-urls http://0.0.0.0:${PORT1} \
-    --advertise-client-urls http://${NODE1}:${PORT0} \
-    --listen-client-urls http://0.0.0.0:${PORT0} \
-    --initial-cluster node0=http://${NODE1}:${PORT1}
+    --data-dir /etcd-data \
+    --initial-advertise-peer-urls "http://${NODE1}:${PORT1}" \
+    --listen-peer-urls "http://0.0.0.0:${PORT1}" \
+    --advertise-client-urls "http://${NODE1}:${PORT0}" \
+    --listen-client-urls "http://0.0.0.0:${PORT0}" \
+    --initial-cluster "node0=http://${NODE1}:${PORT1}"
+}
+
+etcdctl() {
+	local IMAGE
+	IMAGE="etcdctl"
+	local TAG
+	TAG="arm64v8-debian-bullseye-slim"
+
+    docker run -it --rm \
+    -e ETCDCTL_API=3 \
+    "$DOCKER_REPO_USER"/"$IMAGE":"$TAG" \
+    --endpoints="$LOCAL_IP":2379 \
+    "$@"
 }
 
 nmap(){
@@ -41,7 +56,6 @@ nmap(){
     IMAGE=nmap
     local TAG
     TAG="arm64v8-debian-bullseye-slim"
-
 
 	docker run --rm -it \
 		--net host \
