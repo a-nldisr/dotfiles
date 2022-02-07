@@ -119,6 +119,62 @@ install_ext_terraform() {
     code --install-extension mauve.terraform
 }
 
+install_go() {
+    code --install-extension golang.go
+}
+
+install_grammarly() {
+    code --install-extension znck.grammarly
+}
+
+install_jsonnet-format() {
+    code --install-extension xrc-inc.jsonnet-formatter
+}
+
+install_jsonnet() {
+    code --install-extension JulienDuchesne.vscode-jsonnet
+}
+
+install_vim() {
+    code --install-extension vscodevim.vim
+}
+
+install_htmlpreview() {
+    code --install-extension tht13.html-preview-vscode
+}
+
+install_jupyterrender() {
+    code --install-extension ms-toolsai.jupyter-renderers
+}
+
+install_jupyterkeymap() {
+    code --install-extension ms-toolsai.jupyter-keymap
+}
+
+install_jupyter() {
+    code --install-extension ms-toolsai.jupyter
+}
+
+install_kubernetes() {
+    code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
+}
+
+install_docker() {
+    code --install-extension ms-azuretools.vscode-docker
+}
+
+install_copilot() {
+    code --install-extension GitHub.copilot
+}
+
+install_diff() {
+    code --install-extension fabiospampinato.vscode-diff
+}
+
+install_pdfpreview() {
+    code --install-extension analytic-signal.preview-pdf
+}
+
 main() {
     install_ext_markdown
     install_ext_docker
@@ -150,6 +206,20 @@ main() {
     install_ext_jinja
     install_ext_hcl
     install_ext_themecobalt
+    install_grammarly
+    install_jsonnet-format
+    install_jsonnet
+    install_vim
+    install_htmlpreview
+    install_jupyterrender
+    install_jupyterkeymap
+    install_jupyter
+    install_kubernetes
+    install_docker
+    install_go
+    install_copilot
+    install_diff
+    install_pdfpreview
 }
 
 main
