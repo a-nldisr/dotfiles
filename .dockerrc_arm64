@@ -47,3 +47,28 @@ nmap(){
 		--net host \
 		"${DOCKER_REPO_USER}"/"$IMAGE":"$TAG" "$@"
 }
+
+jupyter(){
+    local IMAGE
+    IMAGE="jupyter-base-notebook"
+    local TAG
+    TAG="arm64v8-debian-bullseye-slim-latest"
+    PORT=8888
+    local LOCAL_VOLUME
+    LOCAL_VOLUME="$HOME/jupyter/notebooks"
+    local TOKEN
+    TOKEN=local
+    # Allow to run sudo in the container
+    local SUDO
+    SUDO=no
+
+    docker run -d --rm \
+    -p $PORT:$PORT \
+    --name jupyter \
+    -v "$LOCAL_VOLUME":/home/jovyan/notebooks \
+    -e GRANT_SUDO=${SUDO} \
+    "${DOCKER_REPO_USER}"/"$IMAGE":"$TAG" \
+    jupyter notebook --NotebookApp.token=${TOKEN} && \
+    sleep 1 && \
+    open http://localhost:8888/?token=${TOKEN}
+}
