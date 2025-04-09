@@ -1,5 +1,6 @@
 #!/bin/bash
-echo "Loading LLM environment variables from .llm"
+echo "Loading LLM bash functions from .llm"
+# Not possible to source with flakes: https://github.com/direnv/direnv/issues/73
 atlassian() {
     uvx mcp-atlassian \
       --confluence-url "${CONFLUENCE_URL}" \
