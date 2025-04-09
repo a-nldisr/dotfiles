@@ -1,0 +1,18 @@
+#!/bin/bash
+echo "Loading LLM environment variables from .llm"
+atlassian() {
+    uvx mcp-atlassian \
+      --confluence-url "${CONFLUENCE_URL}" \
+      --confluence-username "${ATLASSIAN_USERNAME}" \
+      --confluence-token "${ATLASSIAN_API_KEY}"  \
+      --jira-url "${JIRA_URL}" \
+      --jira-username  "${ATLASSIAN_USERNAME}" \
+      --jira-token "${ATLASSIAN_API_KEY}" \
+      --read-only
+}
+
+mcpo() {
+    export PORT=8000
+    uvx mcpo --port "${PORT}" -- \
+    "$(atlassian)"
+}
