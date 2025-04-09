@@ -1,0 +1,19 @@
+#!/bin/bash
+echo "Loading LLM bash functions from .llm"
+# Not possible to source with flakes: https://github.com/direnv/direnv/issues/73
+atlassian() {
+    uvx mcp-atlassian \
+      --confluence-url "${CONFLUENCE_URL}" \
+      --confluence-username "${ATLASSIAN_USERNAME}" \
+      --confluence-token "${ATLASSIAN_API_KEY}"  \
+      --jira-url "${JIRA_URL}" \
+      --jira-username  "${ATLASSIAN_USERNAME}" \
+      --jira-token "${ATLASSIAN_API_KEY}" \
+      --read-only
+}
+
+mcpo() {
+    export PORT=8000
+    uvx mcpo --port "${PORT}" -- \
+    "$(atlassian)"
+}

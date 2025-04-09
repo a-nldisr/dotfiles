@@ -5,3 +5,6 @@ Session.vim
 .extra
 .employer
 .vscode
+.secrets
+.direnv/*
+flake.lock
