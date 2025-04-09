@@ -34,6 +34,10 @@
             (pyDeps pkgs)
             (uvxDeps pkgs)
           ];
+
+          shellHook = ''
+            echo "Welcome to the LLM shell!"
+          '';
         };
 
         devShells.uvx = pkgs.mkShell {
