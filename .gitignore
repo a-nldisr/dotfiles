@@ -7,4 +7,3 @@ Session.vim
 .vscode
 .secrets
 .direnv/*
-flake.lock
