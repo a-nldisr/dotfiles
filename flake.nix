@@ -19,7 +19,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
-        formatter = pkgs.nixfmt-rfc-style;
+        formatter = pkgs.nixfmt;
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
@@ -34,7 +34,7 @@
             lazygit
 
             # Nix tooling
-            nixfmt-rfc-style
+            nixfmt
             nil
             nix-tree
 
