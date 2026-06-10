@@ -6,4 +6,10 @@ Session.vim
 .employer
 .vscode
 .secrets
+
+# Direnv
 .direnv/*
+
+# Nix
+
+.direnv/
