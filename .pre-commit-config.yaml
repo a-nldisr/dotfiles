@@ -1,0 +1,17 @@
+repos:
+  - repo: local
+    hooks:
+      - id: validate-environments
+        name: Validate environment structure
+        language: script
+        entry: ./bin/validate-envs.sh
+        pass_filenames: false
+        always_run: true
+ 
+      - id: nixfmt
+        name: Format Nix files
+        language: system
+        entry: nixfmt
+        types: [ file ]
+        files: \.nix$
+ 

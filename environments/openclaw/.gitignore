@@ -1,0 +1,35 @@
+
+# AgentSecrets environment files
+.env
+.env.development
+.env.staging
+.env.production
+
+# Runtime state — never commit
+.agent/
+.agentsecrets/
+.direnv/
+credentials/
+memory/
+logs/
+tasks/
+flows/
+cron/
+devices/
+identity/
+canvas/
+subagents/
+agents/
+acpx/
+completions/
+plugin-skills/
+plugins/
+telegram/
+workspace/
+update-check.json
+openclaw.json
+openclaw.json.*
+*.bak
+*.bak.*
+*.clobbered.*
+*.last-good
