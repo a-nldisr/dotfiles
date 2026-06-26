@@ -29,4 +29,7 @@ for profile in $profiles; do
       echo "Linked: $profile/$skill"
     fi
   done
+
+  hermes -p "$profile" config set skills.external_dirs "$SKILLS_DIR"
+  echo "  [$profile] skills.external_dirs = $SKILLS_DIR"
 done
