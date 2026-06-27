@@ -124,6 +124,13 @@ echo "Running cron setup"
 bash "$HERMES_SCRIPT_DIR/cron-setup.sh"
 echo "  Cron jobs registered"
 
+# ---------------------------------------------------------------------------
+# Execute agent-setup to link agent .md files
+# ---------------------------------------------------------------------------
+
+echo "Running agent .md setup"
+bash "$HERMES_SCRIPT_DIR/agent-setup.sh"
+echo "  Agent .md files linked"
 
 # ---------------------------------------------------------------------------
 # Done
