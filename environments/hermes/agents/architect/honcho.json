@@ -1,0 +1,33 @@
+{
+  "baseUrl": "http://localhost:8000",
+  "workspace": "hermes",
+  "peerName": "rogier",
+  "hosts": {
+    "hermes": {
+      "enabled": true,
+      "aiPeer": "hermes",
+      "recallMode": "hybrid",
+      "sessionStrategy": "per-directory",
+      "dialecticReasoningLevel": "low",
+      "dialecticDepth": 1,
+      "dialecticCadence": 3,
+      "contextCadence": 1,
+      "writeFrequency": "async",
+      "saveMessages": true
+    },
+    "hermes_architect": {
+      "peerName": "rogier",
+      "aiPeer": "hermes",
+      "workspace": "hermes",
+      "pinPeerName": false,
+      "observationMode": "directional",
+      "writeFrequency": "async",
+      "recallMode": "hybrid",
+      "dialecticCadence": 2,
+      "dialecticReasoningLevel": "low",
+      "sessionStrategy": "per-session",
+      "enabled": true,
+      "saveMessages": true
+    }
+  }
+}
