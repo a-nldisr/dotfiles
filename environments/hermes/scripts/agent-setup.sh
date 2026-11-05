@@ -3,10 +3,19 @@ set -euo pipefail
 
 HERMES_PROFILES="${HOME}/.hermes/profiles"
 AGENTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../agents" && pwd)"
+FORCE=false
+
+for arg in "$@"; do
+  case "$arg" in
+    --force) FORCE=true ;;
+    *) echo "Unknown argument: $arg" >&2; exit 1 ;;
+  esac
+done
 
 echo "Starting agent .md setup"
 echo "  agents dir : ${AGENTS_DIR}"
 echo "  profiles   : ${HERMES_PROFILES}"
+echo "  force      : ${FORCE}"
 
 if [[ ! -d "$AGENTS_DIR" ]]; then
   echo "ERROR: agents dir not found: ${AGENTS_DIR}" >&2
@@ -44,7 +53,13 @@ for agent_dir in "${AGENTS_DIR}"/*/; do
       echo "  [${profile}] updating symlink: ${filename} (was -> ${current_target})"
       ln -sf "$src" "$dest"
     elif [[ -f "$dest" ]]; then
-      echo "  [${profile}] WARNING: ${filename} exists as a regular file, skipping (remove it manually to replace with symlink)"
+      if [[ "$FORCE" == true ]]; then
+        echo "  [${profile}] overriding regular file: ${filename}"
+        rm "$dest"
+        ln -s "$src" "$dest"
+      else
+        echo "  [${profile}] WARNING: ${filename} exists as a regular file, skipping (use --force to replace with symlink)"
+      fi
     else
       echo "  [${profile}] linking: ${filename} -> ${src}"
       ln -s "$src" "$dest"

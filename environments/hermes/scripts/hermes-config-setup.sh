@@ -102,12 +102,19 @@ hermes -p architect config set auxiliary.title.model    "${PROFILE_MODELS[archit
 
 # ---------------------------------------------------------------------------
 # Gateway systemd service — architect profile
+# Skipped when HERMES_GATEWAY=false (service accounts have no user manager
+# and must not consume the bot token; the gateway runs once, on the human's
+# own account).
 # ---------------------------------------------------------------------------
 
-echo "Installing gateway systemd service"
-hermes -p architect gateway install
-systemctl --user daemon-reload
-echo "  Gateway service installed: hermes-gateway-architect"
+if [[ "${HERMES_GATEWAY:-true}" == true ]]; then
+  echo "Installing gateway systemd service"
+  hermes -p architect gateway install
+  systemctl --user daemon-reload
+  echo "  Gateway service installed: hermes-gateway-architect"
+else
+  echo "Skipping gateway install (HERMES_GATEWAY=$HERMES_GATEWAY) — one bot token, one consumer"
+fi
 
 # ---------------------------------------------------------------------------
 # Execute skills-setup to link skills directories

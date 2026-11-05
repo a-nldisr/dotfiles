@@ -1,20 +1,35 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# Link the shared skills repo into the global skills dir and into every
+# Hermes profile's skills dir, and register it as an external skills source
+# per profile. Idempotent.
 
 SKILLS_DIR="$HOME/Git/skills"
-HERMES_PROFILES="$HOME/.hermes/profiles"
+HERMES_SKILLS="$HOME/.hermes/skills"
 
-# Parse profile names from hermes profile list, skip header lines, strip leading symbols
-profiles=$(hermes profile list 2>/dev/null | awk 'NR>2 {print $1}' | tr -d '◆ ' | grep -av '^[-─]*$' | grep -av '^$' | grep -a '^[a-zA-Z]')
+# Profiles that exist in HERMES_HOME.
+PROFILES=(architect coder qa investigator)
 
-for profile in $profiles; do
-  [[ -z "$profile" ]] && continue
-
-  profile_skills="$HERMES_PROFILES/$profile/skills"
-  if [[ ! -d "$profile_skills" ]]; then
-    echo "Skipping $profile — skills dir not found"
-    continue
+# --- global ~/.hermes/skills --------------------------------------------------
+mkdir -p "$HERMES_SKILLS"
+for skill_dir in "$SKILLS_DIR"/*/; do
+  [[ -d "$skill_dir" ]] || continue
+  skill=$(basename "$skill_dir")
+  target="$HERMES_SKILLS/$skill"
+  if [[ -L "$target" ]]; then
+    echo "Already linked: $skill -> $(readlink "$target")"
+  elif [[ -d "$target" ]]; then
+    echo "Skipping $skill — exists as real dir"
+  else
+    ln -s "$skill_dir" "$target"
+    echo "Linked: $skill -> $skill_dir"
   fi
+done
+
+# --- per-profile skills dirs ----------------------------------------------------
+for profile in "${PROFILES[@]}"; do
+  profile_skills="$HOME/.hermes/profiles/$profile/skills"
+  mkdir -p "$profile_skills"
 
   for skill_dir in "$SKILLS_DIR"/*/; do
     [[ -d "$skill_dir" ]] || continue
@@ -26,7 +41,7 @@ for profile in $profiles; do
       echo "Skipping $profile/$skill — exists as real dir"
     else
       ln -s "$skill_dir" "$target"
-      echo "Linked: $profile/$skill"
+      echo "Linked: $profile/$skill -> $skill_dir"
     fi
   done
 
